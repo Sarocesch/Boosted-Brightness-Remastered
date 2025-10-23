@@ -9,5 +9,5 @@
     "key.boosted-brightness.select5": "Helligkeitsstufe 5 auswählen",
     "category.boosted-brightness.title": "Boosted Brightness",
     "overlay.boosted-brightness.change": "Helligkeit %s: %s%%",
-    "options.boosted-brightness.title": "Boosted Brightness Einstellungen"
+    "key.category.minecraft.boostedbrightness.main": "Boosted Brightness Einstellungen"
 }

@@ -9,5 +9,5 @@
     "key.boosted-brightness.select5": "Select Brightness 5",
     "category.boosted-brightness.title": "Boosted Brightness",
     "overlay.boosted-brightness.change": "Brightness %s: %s%%",
-    "options.boosted-brightness.title": "Boosted Brightness Options"
+    "key.category.minecraft.boostedbrightness.main": "Boosted Brightness Options"
 }

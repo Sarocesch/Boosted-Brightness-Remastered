@@ -22,7 +22,7 @@ public class ModMenuIntegration implements ModMenuApi {
         private BrightnessListWidget list;
 
         public ModMenuOptionsScreen(Screen parent) {
-            super(parent, MinecraftClient.getInstance().options, Text.translatable("options.boosted-brightness.title"));
+            super(parent, MinecraftClient.getInstance().options, Text.translatable("key.category.minecraft.boostedbrightness.main"));
         }
 
         @Override
