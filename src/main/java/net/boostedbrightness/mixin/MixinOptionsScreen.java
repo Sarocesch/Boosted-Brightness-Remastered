@@ -1,67 +1,61 @@
 package net.boostedbrightness.mixin;
 
+import net.boostedbrightness.BoostedBrightness;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.VideoOptionsScreen;
 import net.minecraft.client.gui.widget.SliderWidget;
+import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.Element;
-
-import java.lang.reflect.Method;
 
 @Mixin(VideoOptionsScreen.class)
-public class MixinOptionsScreen {
+public abstract class MixinOptionsScreen extends Screen {
 
+    // Konstruktor nötig, da wir Screen erweitern
+    protected MixinOptionsScreen(Text title) {
+        super(title);
+    }
+
+    // robustes target: "init" ohne Descriptor, require=0 macht Build tolerant, falls Mapping leicht abweicht
     @Inject(method = "init", at = @At("RETURN"), require = 0)
     private void addBoostedBrightnessSlider(CallbackInfo ci) {
+        // initialer Slider-Wert: nutze den aktuellen Wert der Gamma-Option
+        double initial = 0.5d;
+        try {
+            SimpleOption<Double> gammaOpt = MinecraftClient.getInstance().options.getGamma();
+            if (gammaOpt != null) initial = gammaOpt.getValue();
+        } catch (Throwable ignored) {}
+
         SliderWidget customSlider = new SliderWidget(10, 10, 200, 20,
-                Text.literal("Boosted Brightness"), 0.5d) {
+                Text.literal("Boosted Brightness"), initial) {
+
             @Override
             protected void updateMessage() {
-                setMessage(Text.literal("Brightness: " + String.format("%.2f", this.value)));
+                this.setMessage(Text.literal("Brightness: " + String.format("%.2f", this.value)));
             }
 
             @Override
             protected void applyValue() {
-                // hier den Wert anwenden
+                // Setze den Wert sauber in die SimpleOption (keine direkten Feldzugriffe)
+                try {
+                    SimpleOption<Double> gammaOpt = MinecraftClient.getInstance().options.getGamma();
+                    if (gammaOpt != null) {
+                        // Clamp auf Werte aus BoostedBrightness, um Konsistenz zu wahren
+                        double newVal = Math.min(BoostedBrightness.maxBrightness, Math.max(BoostedBrightness.minBrightness, this.value));
+                        gammaOpt.setValue(newVal);
+                    }
+                } catch (Throwable t) {
+                    // Falls etwas unerwartet ist, ignoriere — wir wollen keinen Crash hier
+                }
             }
         };
 
-        // Versuche gängige öffentliche Methoden; fallback: Reflection oder children-Feld
-        try {
-            try {
-                Method m = Screen.class.getMethod("addRenderableChild", Element.class);
-                m.invoke(this, customSlider);
-                return;
-            } catch (NoSuchMethodException ignored) {}
-
-            try {
-                Method m = Screen.class.getMethod("addDrawableChild", Element.class);
-                m.invoke(this, customSlider);
-                return;
-            } catch (NoSuchMethodException ignored) {}
-
-            try {
-                Method m = Screen.class.getMethod("addDrawable", Element.class);
-                m.invoke(this, customSlider);
-                return;
-            } catch (NoSuchMethodException ignored) {}
-
-            Method declared = Screen.class.getDeclaredMethod("addDrawableChild", Element.class);
-            declared.setAccessible(true);
-            declared.invoke(this, customSlider);
-        } catch (Throwable t) {
-            try {
-                java.lang.reflect.Field childrenField = Screen.class.getDeclaredField("children");
-                childrenField.setAccessible(true);
-                @SuppressWarnings("unchecked")
-                java.util.List<Element> children = (java.util.List<Element>) childrenField.get(this);
-                children.add(customSlider);
-            } catch (Throwable ignored) {
-            }
-        }
+        // Füge das Widget ordentlich zur Screen-Instanz hinzu.
+        // Als Mixinklasse sind wir selbst eine Screen-Subclass, daher ist this.addDrawableChild(...) erlaubt.
+        this.addDrawableChild(customSlider);
     }
 }
