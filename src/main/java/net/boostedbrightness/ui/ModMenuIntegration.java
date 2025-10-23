@@ -37,7 +37,6 @@ public class ModMenuIntegration implements ModMenuApi {
 
         @Override
         protected void addOptions() {
-            // leer, weil wir keine GameOptions hinzufügen müssen
         }
 
         @Override

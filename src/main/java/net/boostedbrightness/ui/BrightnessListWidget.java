@@ -19,10 +19,8 @@ public class BrightnessListWidget extends ElementListWidget<BrightnessListWidget
 
     @SuppressWarnings("unchecked")
     public BrightnessListWidget(MinecraftClient client, int width, int height, int top, int bottom) {
-        // Neuer Konstruktor: 5 Parameter (client, width, height, top, bottom)
         super(client, width, height, top, bottom);
 
-        // setRenderSelection wurde entfernt in neueren Mappings -> Auswahl-Rendering in Entry implementieren, falls nötig
 
         if (client.options.getGamma().getValue() != BoostedBrightness.getBrightness()) {
             BoostedBrightness.changeBrightness(client.options.getGamma().getValue());
@@ -44,7 +42,6 @@ public class BrightnessListWidget extends ElementListWidget<BrightnessListWidget
         BoostedBrightness.brightnesses.add(1.0);
         int size = BoostedBrightness.numBrightnesses();
 
-        // füge neuen Eintrag an der vorletzten Stelle (vor dem + Button) ein
         entries.add(size - 1, BrightnessEntry.create(size - 1, this.width, this));
 
         if (size == BoostedBrightness.MAX_BRIGHTNESSES) {
@@ -81,7 +78,6 @@ public class BrightnessListWidget extends ElementListWidget<BrightnessListWidget
 
     @Override
     public int getRowLeft() {
-        // Ersetzt das alte getScrollbarPositionX()-Offset
         return super.getRowLeft() + 32;
     }
 
@@ -149,10 +145,8 @@ public class BrightnessListWidget extends ElementListWidget<BrightnessListWidget
         @Override
         public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX,
                            int mouseY, boolean hovered, float tickDelta) {
-            // Positioniere und rendere Buttons/Slider
             for (ClickableWidget button : this.buttons) {
                 button.setY(y);
-                // button.setX(...) wird durch ButtonWidget.position(...) beim Erstellen bereits gesetzt relativ zur Gesamt-Screen-Position
                 button.render(context, mouseX, mouseY, tickDelta);
             }
 
