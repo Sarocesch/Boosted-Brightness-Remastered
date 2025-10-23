@@ -8,8 +8,8 @@
   "client": [
     "MixinSimpleOption",
     "MixinMinecraftClient",
-    "MixinSliderControl",
-    "MixinOptionImpl",
+    "MixinGammaOption",
+    "MixinOptionsScreen",
     "MixinLightmapTextureManager"
   ],
   "injectors": {

@@ -25,8 +25,9 @@ public class ModMenuIntegration implements ModMenuApi {
             super(parent, MinecraftClient.getInstance().options, Text.translatable("options.boosted-brightness.title"));
         }
 
+        @Override
         protected void init() {
-            this.list = new BrightnessListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
+            this.list = new BrightnessListWidget(this.client, this.width, this.height, 32, this.height - 32);
             this.addSelectableChild(this.list);
 
             this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
@@ -34,13 +35,20 @@ public class ModMenuIntegration implements ModMenuApi {
             }).size(240, 20).position(this.width / 2 - 120, this.height - 27).build());
         }
 
+        @Override
+        protected void addOptions() {
+            // leer, weil wir keine GameOptions hinzufügen müssen
+        }
+
+        @Override
         public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-            this.renderBackground(context);
+            this.renderBackground(context, 0, 0, delta);
             this.list.render(context, mouseX, mouseY, delta);
             context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 5, 0xFFFFFF);
             super.render(context, mouseX, mouseY, delta);
         }
 
+        @Override
         public void removed() {
             BoostedBrightness.saveConfig();
             super.removed();
