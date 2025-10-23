@@ -50,6 +50,9 @@ processResources {
 
 loom {
     accessWidenerPath = file("src/main/resources/boostedbrightness.accesswidener")
+    mixin {
+        defaultRefmapName.set("boostedbrightness.refmap.json")
+    }
 }
 
 // ensure that the encoding is set to UTF-8

@@ -26,11 +26,11 @@ public class MixinMinecraftClient {
         saveConfig();
     }
 
-    @Inject(at = @At("HEAD"), method = "setScreen")
-    private void setScreen(Screen screen, CallbackInfo info) {
+    @Inject(at = @At("HEAD"), method = "setScreen(Lnet/minecraft/client/gui/screen/Screen;)V")
+    private void onSetScreen(Screen screen, CallbackInfo info) {
         if (screen instanceof OptionsScreen && System.currentTimeMillis() - lastSaveTime > SAVE_INTERVAL) {
             saveConfig();
             lastSaveTime = System.currentTimeMillis();
         }
     }
-} 
+}
