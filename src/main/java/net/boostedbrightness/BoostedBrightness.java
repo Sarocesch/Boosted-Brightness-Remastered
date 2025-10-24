@@ -26,7 +26,7 @@ public class BoostedBrightness implements ClientModInitializer {
     private static final Gson GSON = new Gson();
 
     public static double minBrightness = -1.0;
-    public static double maxBrightness = 15.0; // Erweiterter Bereich für Sodium-Kompatibilität
+    public static double maxBrightness = 15.0;
     public static double brightnessSliderInterval = 0.05;
     private static double step = 0.1;
 
@@ -62,7 +62,7 @@ public class BoostedBrightness implements ClientModInitializer {
 
     public static MinecraftClient client;
 
-    // Sodium Kompatibilitäts-Flag
+
     public static boolean isSodiumLoaded = false;
 
     public static void changeBrightness(double brightness) {
@@ -109,14 +109,14 @@ public class BoostedBrightness implements ClientModInitializer {
 
     public static double getBrightness() {
         if (brightnesses == null || brightnesses.isEmpty()) {
-            return 1.0; // Default fallback
+            return 1.0;
         }
         return brightnesses.get(brightnessIndex);
     }
 
     public static double getBrightness(int index) {
         if (brightnesses == null || brightnesses.isEmpty() || index < 0 || index >= brightnesses.size()) {
-            return 1.0; // Default fallback
+            return 1.0;
         }
         return brightnesses.get(index);
     }
@@ -165,7 +165,6 @@ public class BoostedBrightness implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        // Sodium Kompatibilität prüfen
         isSodiumLoaded = FabricLoader.getInstance().isModLoaded("sodium");
 
         KeyBindingHelper.registerKeyBinding(NEXT_BIND);
@@ -210,13 +209,12 @@ public class BoostedBrightness implements ClientModInitializer {
         Path configPath = getConfigPath();
 
         if (!Files.exists(configPath)) {
-            // Erstelle Standardkonfiguration
             brightnesses = new ArrayList<>();
             brightnesses.add(1.0);
             brightnesses.add(maxBrightness);
             brightnessIndex = 0;
             lastBrightnessIndex = 0;
-            saveConfig(); // Speichere die Standardkonfiguration
+            saveConfig();
             return;
         }
 
@@ -248,7 +246,6 @@ public class BoostedBrightness implements ClientModInitializer {
             }
         } catch (IOException | JsonSyntaxException ex) {
             logException(ex, "Failed to load BoostedBrightness config");
-            // Fallback auf Standardwerte
             brightnesses = new ArrayList<>();
             brightnesses.add(1.0);
             brightnesses.add(maxBrightness);
@@ -256,7 +253,6 @@ public class BoostedBrightness implements ClientModInitializer {
             lastBrightnessIndex = 0;
         }
 
-        // Sicherstellen, dass wir mindestens 2 Werte haben
         if (brightnesses == null || brightnesses.size() < 2) {
             brightnesses = new ArrayList<>();
             brightnesses.add(1.0);
@@ -277,10 +273,8 @@ public class BoostedBrightness implements ClientModInitializer {
         int percentage;
 
         if (isSodiumLoaded) {
-            // Für Sodium: Umrechnung in den erweiterten Bereich
             percentage = (int) Math.round((currentBrightness / maxBrightness) * 1500);
         } else {
-            // Für Vanilla: Normale Prozentberechnung
             percentage = (int) Math.round(currentBrightness * 100);
         }
 
@@ -326,7 +320,6 @@ public class BoostedBrightness implements ClientModInitializer {
         }
     }
 
-    // Logger für die Mod
     public static final org.apache.logging.log4j.Logger LOGGER =
             org.apache.logging.log4j.LogManager.getLogger("BoostedBrightness");
 }

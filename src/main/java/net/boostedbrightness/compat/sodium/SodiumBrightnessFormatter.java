@@ -10,7 +10,6 @@ public class SodiumBrightnessFormatter {
             if (value == 0) {
                 return Text.translatable("options.gamma.min");
             } else {
-                // Für erweiterte Werte über 100%
                 double extendedValue = (value / 100.0) * BoostedBrightness.maxBrightness;
                 int percentage = (int) Math.round(extendedValue * 100);
                 return Text.literal(percentage + "%");

@@ -23,7 +23,6 @@ public abstract class MixinOptionsScreen extends Screen {
 
     @Inject(method = "addOptions", at = @At("RETURN"))
     private void addBoostedBrightnessSlider(CallbackInfo ci) {
-        // Nur hinzufügen wenn Sodium nicht geladen ist
         if (BoostedBrightness.isSodiumLoaded) {
             return;
         }
@@ -34,7 +33,6 @@ public abstract class MixinOptionsScreen extends Screen {
             if (gammaOpt != null) initial = gammaOpt.getValue();
         } catch (Throwable ignored) {}
 
-        // Erstelle einen benutzerdefinierten Slider
         ClickableWidget customSlider = new net.minecraft.client.gui.widget.SliderWidget(10, 10, 200, 20,
                 Text.literal("Boosted Brightness"), initial) {
 
@@ -52,7 +50,6 @@ public abstract class MixinOptionsScreen extends Screen {
                         gammaOpt.setValue(newVal);
                     }
                 } catch (Throwable t) {
-                    // Ignoriere Fehler
                 }
             }
         };

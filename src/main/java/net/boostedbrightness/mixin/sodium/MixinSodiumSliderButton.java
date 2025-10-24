@@ -37,7 +37,6 @@ public class MixinSodiumSliderButton {
 
     @Inject(method = "<init>", at = @At("RETURN"), remap = false)
     private void onInit(CallbackInfo ci) {
-        // Verwende Reflection um an die Option zu kommen, da sie private ist
         try {
             java.lang.reflect.Field optionField = this.getClass().getDeclaredField("field_22786"); // option field
             optionField.setAccessible(true);
@@ -49,9 +48,8 @@ public class MixinSodiumSliderButton {
 
                 Text name = sodiumOption.getName();
                 if (name.getString().contains("gamma") || name.getString().contains("Brightness")) {
-                    // Erweitere den Bereich für den Slider
                     this.min = 0;
-                    this.max = (int) (BoostedBrightness.maxBrightness * 100); // Umrechnung in Prozent
+                    this.max = (int) (BoostedBrightness.maxBrightness * 100);
                     this.range = this.max - this.min;
                     this.formatter = SodiumBrightnessFormatter.createBrightnessFormatter();
                 }
