@@ -8,10 +8,13 @@ public class SodiumBrightnessFormatter {
     public static ControlValueFormatter createBrightnessFormatter() {
         return value -> {
 
-            double extendedValue = BoostedBrightness.minBrightness +
-                    (value / 100.0) * (BoostedBrightness.maxBrightness - BoostedBrightness.minBrightness);
-            int percentage = (int) Math.round(extendedValue * 100);
-            return Text.literal(percentage + "%");
+            double gamma = BoostedBrightness.minBrightness +
+                    (value / (BoostedBrightness.maxBrightness * 100.0)) *
+                            (BoostedBrightness.maxBrightness - BoostedBrightness.minBrightness);
+
+            long brightness = Math.round(gamma * 100);
+
+            return Text.literal(String.valueOf(brightness));
         };
     }
 }

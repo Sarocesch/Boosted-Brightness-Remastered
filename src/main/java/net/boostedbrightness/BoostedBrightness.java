@@ -25,8 +25,8 @@ public class BoostedBrightness implements ClientModInitializer {
     public static final int MAX_BRIGHTNESSES = 5;
     private static final Gson GSON = new Gson();
 
-    public static double minBrightness = 0.0;
-    public static double maxBrightness = 12.0;
+    public static double minBrightness = -1.0;
+    public static double maxBrightness = 15.0;
     public static double brightnessSliderInterval = 0.05;
     private static double step = 0.1;
 
