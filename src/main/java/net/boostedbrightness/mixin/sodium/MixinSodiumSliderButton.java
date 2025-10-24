@@ -15,6 +15,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(targets = "net.caffeinemc.mods.sodium.client.gui.options.control.SliderControl$Button")
 public class MixinSodiumSliderButton {
 
+
+
+    @Shadow(remap = false)
+    @Final
+    @Mutable
+    private int range;
+
     @Shadow(remap = false)
     @Final
     @Mutable
@@ -28,34 +35,30 @@ public class MixinSodiumSliderButton {
     @Shadow(remap = false)
     @Final
     @Mutable
-    private int range;
+    private int interval;
 
     @Shadow(remap = false)
     @Final
     @Mutable
     private net.caffeinemc.mods.sodium.client.gui.options.control.ControlValueFormatter formatter;
+    // Corrected shadow fields using actual names from Sodium
+
+
+    private net.caffeinemc.mods.sodium.client.gui.options.Option<?> capturedOption;
 
     @Inject(method = "<init>", at = @At("RETURN"), remap = false)
-    private void onInit(CallbackInfo ci) {
-        try {
-            java.lang.reflect.Field optionField = this.getClass().getDeclaredField("field_22786"); // option field
-            optionField.setAccessible(true);
-            Object option = optionField.get(this);
-
-            if (option instanceof net.caffeinemc.mods.sodium.client.gui.options.Option) {
-                net.caffeinemc.mods.sodium.client.gui.options.Option<?> sodiumOption =
-                        (net.caffeinemc.mods.sodium.client.gui.options.Option<?>) option;
-
-                Text name = sodiumOption.getName();
-                if (name.getString().contains("gamma") || name.getString().contains("Brightness")) {
-                    this.min = 0;
-                    this.max = (int) (BoostedBrightness.maxBrightness * 100);
-                    this.range = this.max - this.min;
-                    this.formatter = SodiumBrightnessFormatter.createBrightnessFormatter();
-                }
+    private void onInit(net.caffeinemc.mods.sodium.client.gui.options.Option<?> option, net.caffeinemc.mods.sodium.client.util.Dim2i dim, int min, int max, int interval, net.caffeinemc.mods.sodium.client.gui.options.control.ControlValueFormatter formatter, CallbackInfo ci) {
+        this.capturedOption = option;
+        if (this.capturedOption != null) {
+            Text name = this.capturedOption.getName();
+            if (name.getString().contains("gamma") || name.getString().contains("Brightness")) {
+                this.min = 0;
+                this.max = (int) (BoostedBrightness.maxBrightness * 100);
+                this.range = this.max - this.min;
+                this.formatter = SodiumBrightnessFormatter.createBrightnessFormatter();
             }
-        } catch (Exception e) {
-            BoostedBrightness.LOGGER.warn("Failed to modify Sodium brightness slider: " + e.getMessage());
+        } else {
+            BoostedBrightness.LOGGER.warn("Sodium option field nicht verfügbar");
         }
     }
 }
