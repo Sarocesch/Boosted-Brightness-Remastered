@@ -53,7 +53,7 @@ public class MixinSodiumSliderButton {
             Text name = this.capturedOption.getName();
             if (name.getString().contains("gamma") || name.getString().contains("Brightness")) {
                 this.min = 0;
-                this.max = (int) (BoostedBrightness.maxBrightness * 100);
+                this.max = 100;
                 this.range = this.max - this.min;
                 this.formatter = SodiumBrightnessFormatter.createBrightnessFormatter();
             }
