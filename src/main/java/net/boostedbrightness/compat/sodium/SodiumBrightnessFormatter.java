@@ -7,13 +7,11 @@ import net.minecraft.text.Text;
 public class SodiumBrightnessFormatter {
     public static ControlValueFormatter createBrightnessFormatter() {
         return value -> {
-            if (value == 0) {
-                return Text.translatable("options.gamma.min");
-            } else {
-                double extendedValue = (value / 100.0) * BoostedBrightness.maxBrightness;
-                int percentage = (int) Math.round(extendedValue * 100);
-                return Text.literal(percentage + "%");
-            }
+
+            double extendedValue = BoostedBrightness.minBrightness +
+                    (value / 100.0) * (BoostedBrightness.maxBrightness - BoostedBrightness.minBrightness);
+            int percentage = (int) Math.round(extendedValue * 100);
+            return Text.literal(percentage + "%");
         };
     }
 }
