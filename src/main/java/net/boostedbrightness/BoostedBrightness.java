@@ -26,7 +26,7 @@ public class BoostedBrightness implements ClientModInitializer {
     private static final Gson GSON = new Gson();
 
     public static double minBrightness = -1.0;
-    public static double maxBrightness = 12.0;
+    public static double maxBrightness = 15.0; // Erweiterter Bereich für Sodium-Kompatibilität
     public static double brightnessSliderInterval = 0.05;
     private static double step = 0.1;
 
@@ -62,13 +62,28 @@ public class BoostedBrightness implements ClientModInitializer {
 
     public static MinecraftClient client;
 
+    // Sodium Kompatibilitäts-Flag
+    public static boolean isSodiumLoaded = false;
+
     public static void changeBrightness(double brightness) {
-        brightnesses.set(getBrightnessIndex(), brightness);
-        client.options.getGamma().setValue(getBrightness());
+        if (brightnesses == null || brightnesses.isEmpty()) {
+            return;
+        }
+
+        double clampedBrightness = Math.min(maxBrightness, Math.max(minBrightness, brightness));
+        brightnesses.set(getBrightnessIndex(), clampedBrightness);
+
+        if (client != null && client.options != null) {
+            try {
+                client.options.getGamma().setValue(clampedBrightness);
+            } catch (Exception e) {
+                LOGGER.warn("Failed to set gamma value: " + e.getMessage());
+            }
+        }
     }
 
     public static int numBrightnesses() {
-        return brightnesses.size();
+        return brightnesses != null ? brightnesses.size() : 0;
     }
 
     public static int getBrightnessIndex() {
@@ -76,42 +91,72 @@ public class BoostedBrightness implements ClientModInitializer {
     }
 
     public static void setBrightnessIndex(int index) {
-        brightnessIndex = index;
-        client.options.getGamma().setValue(getBrightness());
+        if (brightnesses == null || brightnesses.isEmpty()) {
+            return;
+        }
+
+        brightnessIndex = Math.max(0, Math.min(numBrightnesses() - 1, index));
+
+        if (client != null && client.options != null) {
+            try {
+                double brightness = getBrightness();
+                client.options.getGamma().setValue(brightness);
+            } catch (Exception e) {
+                LOGGER.warn("Failed to set gamma value: " + e.getMessage());
+            }
+        }
     }
 
     public static double getBrightness() {
+        if (brightnesses == null || brightnesses.isEmpty()) {
+            return 1.0; // Default fallback
+        }
         return brightnesses.get(brightnessIndex);
     }
 
     public static double getBrightness(int index) {
+        if (brightnesses == null || brightnesses.isEmpty() || index < 0 || index >= brightnesses.size()) {
+            return 1.0; // Default fallback
+        }
         return brightnesses.get(index);
     }
 
     public static void saveConfig() {
-        JsonObject config = new JsonObject();
-        config.addProperty("min", minBrightness);
-        config.addProperty("max", maxBrightness);
-        config.addProperty("step", step);
-        config.addProperty("selected", brightnessIndex + 1);
-        config.addProperty("last", lastBrightnessIndex + 1);
-
-        for (int i = 0; i < brightnesses.size(); i++) {
-            config.addProperty(String.valueOf(i + 1), brightnesses.get(i));
-        }
-
         try {
-            Files.write(getConfigPath(), GSON.toJson(config).getBytes());
+            JsonObject config = new JsonObject();
+            config.addProperty("min", minBrightness);
+            config.addProperty("max", maxBrightness);
+            config.addProperty("step", step);
+            config.addProperty("selected", brightnessIndex + 1);
+            config.addProperty("last", lastBrightnessIndex + 1);
+
+            if (brightnesses != null) {
+                for (int i = 0; i < brightnesses.size() && i < MAX_BRIGHTNESSES; i++) {
+                    config.addProperty(String.valueOf(i + 1), brightnesses.get(i));
+                }
+            }
+
+            Path configPath = getConfigPath();
+            Files.createDirectories(configPath.getParent());
+            Files.write(configPath, GSON.toJson(config).getBytes());
         } catch (IOException ex) {
             logException(ex, "Failed to save BoostedBrightness config");
+        } catch (Exception ex) {
+            logException(ex, "Unexpected error while saving config");
         }
     }
 
     public static void changeBrightness(int index, double brightness) {
-        if (index == brightnessIndex)
+        if (brightnesses == null || index < 0 || index >= brightnesses.size()) {
+            return;
+        }
+
+        if (index == brightnessIndex) {
             changeBrightness(brightness);
-        else
-            brightnesses.set(index, brightness);
+        } else {
+            double clampedBrightness = Math.min(maxBrightness, Math.max(minBrightness, brightness));
+            brightnesses.set(index, clampedBrightness);
+        }
     }
 
     public static void logException(Exception ex, String message) {
@@ -120,6 +165,9 @@ public class BoostedBrightness implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        // Sodium Kompatibilität prüfen
+        isSodiumLoaded = FabricLoader.getInstance().isModLoaded("sodium");
+
         KeyBindingHelper.registerKeyBinding(NEXT_BIND);
         KeyBindingHelper.registerKeyBinding(RAISE_BIND);
         KeyBindingHelper.registerKeyBinding(LOWER_BIND);
@@ -138,6 +186,8 @@ public class BoostedBrightness implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(this::onEndTick);
         loadConfig();
         client = MinecraftClient.getInstance();
+
+        LOGGER.info("Boosted Brightness initialized" + (isSodiumLoaded ? " with Sodium compatibility" : ""));
     }
 
     private static Path getConfigPath() {
@@ -157,8 +207,27 @@ public class BoostedBrightness implements ClientModInitializer {
     }
 
     private void loadConfig() {
+        Path configPath = getConfigPath();
+
+        if (!Files.exists(configPath)) {
+            // Erstelle Standardkonfiguration
+            brightnesses = new ArrayList<>();
+            brightnesses.add(1.0);
+            brightnesses.add(maxBrightness);
+            brightnessIndex = 0;
+            lastBrightnessIndex = 0;
+            saveConfig(); // Speichere die Standardkonfiguration
+            return;
+        }
+
         try {
-            JsonObject config = GSON.fromJson(new String(Files.readAllBytes(getConfigPath())), JsonObject.class);
+            String configContent = new String(Files.readAllBytes(configPath));
+            JsonObject config = GSON.fromJson(configContent, JsonObject.class);
+
+            if (config == null) {
+                throw new JsonSyntaxException("Config file is empty or invalid");
+            }
+
             asDouble(config.get("min"), min -> minBrightness = min);
             asDouble(config.get("max"), max -> maxBrightness = max);
             asDouble(config.get("step"), step -> BoostedBrightness.step = step);
@@ -179,30 +248,57 @@ public class BoostedBrightness implements ClientModInitializer {
             }
         } catch (IOException | JsonSyntaxException ex) {
             logException(ex, "Failed to load BoostedBrightness config");
-        }
-
-        // Default if config fails
-        if (brightnesses == null || brightnesses.size() < 2) {
+            // Fallback auf Standardwerte
             brightnesses = new ArrayList<>();
             brightnesses.add(1.0);
             brightnesses.add(maxBrightness);
             brightnessIndex = 0;
             lastBrightnessIndex = 0;
         }
+
+        // Sicherstellen, dass wir mindestens 2 Werte haben
+        if (brightnesses == null || brightnesses.size() < 2) {
+            brightnesses = new ArrayList<>();
+            brightnesses.add(1.0);
+            brightnesses.add(maxBrightness);
+            if (brightnessIndex >= brightnesses.size()) {
+                brightnessIndex = 0;
+            }
+            if (lastBrightnessIndex >= brightnesses.size()) {
+                lastBrightnessIndex = 0;
+            }
+        }
     }
 
     private void showOverlay(MinecraftClient client) {
+        if (client.inGameHud == null) return;
+
+        double currentBrightness = getBrightness();
+        int percentage;
+
+        if (isSodiumLoaded) {
+            // Für Sodium: Umrechnung in den erweiterten Bereich
+            percentage = (int) Math.round((currentBrightness / maxBrightness) * 1500);
+        } else {
+            // Für Vanilla: Normale Prozentberechnung
+            percentage = (int) Math.round(currentBrightness * 100);
+        }
+
         client.inGameHud.setOverlayMessage(
                 Text.translatable(
                         "overlay.boosted-brightness.change",
                         getBrightnessIndex() + 1,
-                        Math.round(getBrightness() * 100)
+                        percentage
                 ).styled(s -> s.withColor(GREEN)),
                 false
         );
     }
 
     private void onEndTick(MinecraftClient client) {
+        if (brightnesses == null || brightnesses.isEmpty()) {
+            return;
+        }
+
         while (NEXT_BIND.wasPressed()) {
             lastBrightnessIndex = getBrightnessIndex();
             setBrightnessIndex((lastBrightnessIndex + 1) % numBrightnesses());
@@ -223,9 +319,14 @@ public class BoostedBrightness implements ClientModInitializer {
         while (LOWER_BIND.wasPressed()) offset -= step;
 
         if (offset != 0) {
-            double brightness = Math.max(minBrightness, Math.min(maxBrightness, getBrightness() + offset));
-            changeBrightness(brightness);
+            double currentBrightness = getBrightness();
+            double newBrightness = Math.max(minBrightness, Math.min(maxBrightness, currentBrightness + offset));
+            changeBrightness(newBrightness);
             showOverlay(client);
         }
     }
+
+    // Logger für die Mod
+    public static final org.apache.logging.log4j.Logger LOGGER =
+            org.apache.logging.log4j.LogManager.getLogger("BoostedBrightness");
 }

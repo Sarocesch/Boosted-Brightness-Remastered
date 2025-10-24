@@ -4,13 +4,15 @@ import net.boostedbrightness.BoostedBrightness;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.VideoOptionsScreen;
-import net.minecraft.client.gui.widget.SliderWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
 
 @Mixin(VideoOptionsScreen.class)
 public abstract class MixinOptionsScreen extends Screen {
@@ -19,15 +21,21 @@ public abstract class MixinOptionsScreen extends Screen {
         super(title);
     }
 
-    @Inject(method = "init", at = @At("RETURN"), require = 0)
+    @Inject(method = "addOptions", at = @At("RETURN"))
     private void addBoostedBrightnessSlider(CallbackInfo ci) {
+        // Nur hinzufügen wenn Sodium nicht geladen ist
+        if (BoostedBrightness.isSodiumLoaded) {
+            return;
+        }
+
         double initial = 0.5d;
         try {
             SimpleOption<Double> gammaOpt = MinecraftClient.getInstance().options.getGamma();
             if (gammaOpt != null) initial = gammaOpt.getValue();
         } catch (Throwable ignored) {}
 
-        SliderWidget customSlider = new SliderWidget(10, 10, 200, 20,
+        // Erstelle einen benutzerdefinierten Slider
+        ClickableWidget customSlider = new net.minecraft.client.gui.widget.SliderWidget(10, 10, 200, 20,
                 Text.literal("Boosted Brightness"), initial) {
 
             @Override
@@ -44,9 +52,11 @@ public abstract class MixinOptionsScreen extends Screen {
                         gammaOpt.setValue(newVal);
                     }
                 } catch (Throwable t) {
+                    // Ignoriere Fehler
                 }
             }
         };
+
         this.addDrawableChild(customSlider);
     }
 }
