@@ -1,5 +1,7 @@
 # Boosted Brightness: Remastered
 
+Downlaod on [Curseforge](https://www.curseforge.com/minecraft/mc-mods/boosted-brightness-remastered) or [Modrinth](https://modrinth.com/mod/boosted-brightness-remastered).
+
 A modernized port of **[BoostedBrightness](https://github.com/adamviola/BoostedBrightness)** by Adam Viola — updated for newer Minecraft versions.
 
 This version maintains the original concept of dynamically increasing in-game brightness while improving compatibility, stability, and performance across newer releases.
