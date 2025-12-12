@@ -36,8 +36,8 @@ dependencies {
     modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
 
     // Sodium (compile-time only)
-    modCompileOnly "maven.modrinth:sodium:mc1.21.10-0.7.2-fabric"
-    implementation "org.joml:joml:1.10.2" // Needed for Sodium
+    modCompileOnly "maven.modrinth:sodium:mc1.21.11-0.8.0-fabric"
+    implementation "org.joml:joml:1.10.8"
 }
 
 processResources {
@@ -93,3 +93,4 @@ publishing {
         // mavenLocal()
     }
 }
+apply from: 'disable_javadoc.gradle'
