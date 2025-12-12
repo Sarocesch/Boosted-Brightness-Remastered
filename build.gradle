@@ -93,4 +93,4 @@ publishing {
         // mavenLocal()
     }
 }
-apply from: 'disable_javadoc.gradle'
+//apply from: 'disable_javadoc.gradle'
