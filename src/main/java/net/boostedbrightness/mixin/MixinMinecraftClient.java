@@ -1,9 +1,9 @@
 package net.boostedbrightness.mixin;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.option.OptionsScreen;
-import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.options.OptionsScreen;
+import net.minecraft.client.Options;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,17 +12,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.boostedbrightness.BoostedBrightness.saveConfig;
 
-@Mixin(MinecraftClient.class)
+@Mixin(Minecraft.class)
 public class MixinMinecraftClient {
     private final long SAVE_INTERVAL = 2000;
 
     @Shadow
-    private GameOptions options;
+    public Options options;
     private long lastSaveTime = 0;
 
     @Inject(at = @At("HEAD"), method = "close")
     private void close(CallbackInfo info) {
-        options.write();
+        options.save();
         saveConfig();
     }
 
@@ -33,4 +33,4 @@ public class MixinMinecraftClient {
             lastSaveTime = System.currentTimeMillis();
         }
     }
-} 
+}

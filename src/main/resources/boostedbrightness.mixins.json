@@ -1,10 +1,9 @@
 {
-  "required": false,
+  "required": true,
   "minVersion": "0.8",
   "package": "net.boostedbrightness.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [
-  ],
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [],
   "client": [
     "MixinSimpleOption",
     "MixinMinecraftClient",

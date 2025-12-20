@@ -1,21 +1,21 @@
 package net.boostedbrightness.mixin;
 
 import net.boostedbrightness.BoostedBrightness;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.option.VideoOptionsScreen;
-import net.minecraft.client.gui.widget.SliderWidget;
-import net.minecraft.client.option.SimpleOption;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.options.VideoSettingsScreen;
+import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(VideoOptionsScreen.class)
+@Mixin(VideoSettingsScreen.class)
 public abstract class MixinOptionsScreen extends Screen {
 
-    protected MixinOptionsScreen(Text title) {
+    protected MixinOptionsScreen(Component title) {
         super(title);
     }
 
@@ -23,31 +23,34 @@ public abstract class MixinOptionsScreen extends Screen {
     private void addBoostedBrightnessSlider(CallbackInfo ci) {
         double initial = 0.5d;
         try {
-            SimpleOption<Double> gammaOpt = MinecraftClient.getInstance().options.getGamma();
-            if (gammaOpt != null) initial = gammaOpt.getValue();
-        } catch (Throwable ignored) {}
+            OptionInstance<Double> gammaOpt = Minecraft.getInstance().options.gamma();
+            if (gammaOpt != null)
+                initial = gammaOpt.get();
+        } catch (Throwable ignored) {
+        }
 
-        SliderWidget customSlider = new SliderWidget(10, 10, 200, 20,
-                Text.literal("Boosted Brightness"), initial) {
+        AbstractSliderButton customSlider = new AbstractSliderButton(10, 10, 200, 20,
+                Component.literal("Boosted Brightness"), initial) {
 
             @Override
             protected void updateMessage() {
-                this.setMessage(Text.literal("Brightness: " + String.format("%.2f", this.value)));
+                this.setMessage(Component.literal("Brightness: " + String.format("%.2f", this.value)));
             }
 
             @Override
             protected void applyValue() {
                 try {
-                    SimpleOption<Double> gammaOpt = MinecraftClient.getInstance().options.getGamma();
+                    OptionInstance<Double> gammaOpt = Minecraft.getInstance().options.gamma();
                     if (gammaOpt != null) {
-                        double newVal = Math.min(BoostedBrightness.maxBrightness, Math.max(BoostedBrightness.minBrightness, this.value));
-                        gammaOpt.setValue(newVal);
+                        double newVal = Math.min(BoostedBrightness.maxBrightness,
+                                Math.max(BoostedBrightness.minBrightness, this.value));
+                        gammaOpt.set(newVal);
                     }
                 } catch (Throwable t) {
                 }
             }
         };
 
-        this.addDrawableChild(customSlider);
+        this.addRenderableWidget(customSlider);
     }
 }

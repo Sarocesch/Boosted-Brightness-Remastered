@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[52,)"
+license="MIT"
+issueTrackerURL="https://github.com/adamviola/BoostedBrightness/issues"
+
+[[mods]]
+modId="boostedbrightness"
+version="${file.jarVersion}"
+displayName="Boosted Brightness"
+description='''
+Allows you to set your brightness beyond default levels.
+Includes keybindings for quick brightness switching and a config screen.
+'''
+logoFile="assets/boostedbrightness/icon.png"
+authors="adamviola, sarocesch"
+displayURL="https://github.com/adamviola/BoostedBrightness"
+
+[[dependencies.boostedbrightness]]
+modId="forge"
+mandatory=true
+versionRange="[52,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.boostedbrightness]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.21.1,1.22)"
+ordering="NONE"
+side="CLIENT"

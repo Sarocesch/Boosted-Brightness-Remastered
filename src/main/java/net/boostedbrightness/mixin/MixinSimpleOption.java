@@ -2,11 +2,9 @@ package net.boostedbrightness.mixin;
 
 import net.boostedbrightness.BoostedBrightness;
 import net.boostedbrightness.misc.BoostedSliderCallbacks;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextContent;
-import net.minecraft.text.TranslatableTextContent;
-import net.minecraft.client.option.SimpleOption;
-import net.minecraft.client.option.SimpleOption.Callbacks;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.client.OptionInstance;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -19,62 +17,83 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.mojang.serialization.Codec;
-
-@Mixin(SimpleOption.class)
-public class MixinSimpleOption {
-
-    @Shadow
-    @Final
-    Text text;
-
-    @Shadow
-    @Final
-    @Mutable
-    Function<Double, Text> textGetter;
+/**
+ * Mixin to modify the gamma OptionInstance to support extended brightness
+ * range.
+ * Uses Access Transformer to make fields accessible.
+ */
+@Mixin(OptionInstance.class)
+public class MixinSimpleOption<T> {
 
     @Shadow
     @Final
-    @Mutable
-    private
-    Callbacks<Double> callbacks;
+    Component caption;
 
     @Shadow
     @Final
     @Mutable
-    private
-    Codec<Double> codec;
+    OptionInstance.ValueSet<T> values;
 
     @Shadow
     @Final
     @Mutable
-    private
-    Consumer<Double> changeCallback;
+    Function<T, Component> toString;
 
+    @Shadow
+    @Final
+    @Mutable
+    Consumer<T> onValueUpdate;
+
+    @SuppressWarnings("unchecked")
     @Inject(at = @At("RETURN"), method = "<init>*")
-    private void init(CallbackInfo info) throws Exception {
-        TextContent content = this.text.getContent();
-        if (!(content instanceof TranslatableTextContent))
+    private void init(CallbackInfo info) {
+        if (this.caption == null)
             return;
 
-        String key = ((TranslatableTextContent) content).getKey();
+        var content = this.caption.getContents();
+        if (!(content instanceof TranslatableContents translatable))
+            return;
+
+        String key = translatable.getKey();
         if (!key.equals("options.gamma"))
             return;
 
-        this.textGetter = this::textGetter;
-        this.callbacks = BoostedSliderCallbacks.INSTANCE;
-        this.codec = this.callbacks.codec();
-        this.changeCallback = this::changeCallback;
+        // Replace the values field with our extended range slider callbacks
+        this.values = (OptionInstance.ValueSet<T>) BoostedSliderCallbacks.INSTANCE;
+
+        // Update the text getter for extended range display
+        this.toString = (Function<T, Component>) (Function<Double, Component>) this::textGetter;
+
+        // Update the value change callback
+        this.onValueUpdate = (Consumer<T>) (Consumer<Double>) this::changeCallback;
+
+        System.out.println("[BoostedBrightness] Gamma option modified for extended range: "
+                + BoostedBrightness.minBrightness + " to " + BoostedBrightness.maxBrightness);
     }
 
-    private Text textGetter(Double gamma) {
+    /**
+     * Creates the display text for the brightness slider.
+     */
+    private Component textGetter(Double gamma) {
         long brightness = Math.round(gamma * 100);
-        return Text.translatable("options.gamma").append(": ").append(
-            brightness == 0   ? Text.translatable("options.gamma.min") :
-            brightness == 100 ? Text.translatable("options.gamma.max") :
-                                Text.literal(String.valueOf(brightness)));
+        String display;
+        if (brightness < 0) {
+            display = brightness + "%";
+        } else if (brightness == 0) {
+            display = "0%";
+        } else if (brightness == 100) {
+            display = "100%";
+        } else if (brightness > 100) {
+            display = "+" + brightness + "%";
+        } else {
+            display = brightness + "%";
+        }
+        return Component.translatable("options.gamma").append(": ").append(Component.literal(display));
     }
 
+    /**
+     * Callback when brightness value changes.
+     */
     private void changeCallback(Double gamma) {
         BoostedBrightness.changeBrightness(gamma);
     }

@@ -8,20 +8,27 @@ import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
 
 import com.google.gson.*;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.loading.FMLPaths;
+
 import org.lwjgl.glfw.GLFW;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.OptionInstance;
 
-import static net.minecraft.util.Formatting.GREEN;
-
-public class BoostedBrightness implements ClientModInitializer {
+@Mod(BoostedBrightness.MODID)
+public class BoostedBrightness {
+    public static final String MODID = "boostedbrightness";
     public static final int MAX_BRIGHTNESSES = 5;
     private static final Gson GSON = new Gson();
 
@@ -34,52 +41,58 @@ public class BoostedBrightness implements ClientModInitializer {
     private static int brightnessIndex = 0;
     private static int lastBrightnessIndex = 0;
 
-    private static final KeyBinding NEXT_BIND = new KeyBinding(
-        "key.boosted-brightness.next",
-        InputUtil.Type.KEYSYM,
-        GLFW.GLFW_KEY_B,
-        "category.boosted-brightness.title"
-    );
+    private static KeyMapping NEXT_BIND;
+    private static KeyMapping RAISE_BIND;
+    private static KeyMapping LOWER_BIND;
+    private static final KeyMapping[] SELECT_BINDS = new KeyMapping[MAX_BRIGHTNESSES];
 
-    private static final KeyBinding RAISE_BIND = new KeyBinding(
-        "key.boosted-brightness.raise",
-        InputUtil.Type.KEYSYM,
-        GLFW.GLFW_KEY_RIGHT_BRACKET,
-        "category.boosted-brightness.title"
-    );
+    public static Minecraft client;
 
-    private static final KeyBinding LOWER_BIND = new KeyBinding(
-        "key.boosted-brightness.lower",
-        InputUtil.Type.KEYSYM,
-        GLFW.GLFW_KEY_LEFT_BRACKET,
-        "category.boosted-brightness.title"
-    );
+    public BoostedBrightness() {
+        MinecraftForge.EVENT_BUS.register(this);
+    }
 
-    private static final KeyBinding[] SELECT_BINDS = new KeyBinding[MAX_BRIGHTNESSES];
-
-    public static MinecraftClient client;
-
-    @Override
-    public void onInitializeClient() {
-        KeyBindingHelper.registerKeyBinding(NEXT_BIND);
-        KeyBindingHelper.registerKeyBinding(RAISE_BIND);
-        KeyBindingHelper.registerKeyBinding(LOWER_BIND);
-
-        // Register binds for each brightness setting
-        for (int i = 0; i < MAX_BRIGHTNESSES; i++) {
-            SELECT_BINDS[i] = new KeyBinding(
-                "key.boosted-brightness.select" + (i + 1),
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_UNKNOWN,
-                "category.boosted-brightness.title"
-            );
-
-            KeyBindingHelper.registerKeyBinding(SELECT_BINDS[i]);
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents {
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            loadConfig();
+            client = Minecraft.getInstance();
         }
 
-        ClientTickEvents.END_CLIENT_TICK.register(this::onEndTick);
-        loadConfig();
-        client = MinecraftClient.getInstance();
+        @SubscribeEvent
+        public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
+            NEXT_BIND = new KeyMapping(
+                    "key.boosted-brightness.next",
+                    InputConstants.Type.KEYSYM,
+                    GLFW.GLFW_KEY_B,
+                    "category.boosted-brightness.title");
+
+            RAISE_BIND = new KeyMapping(
+                    "key.boosted-brightness.raise",
+                    InputConstants.Type.KEYSYM,
+                    GLFW.GLFW_KEY_RIGHT_BRACKET,
+                    "category.boosted-brightness.title");
+
+            LOWER_BIND = new KeyMapping(
+                    "key.boosted-brightness.lower",
+                    InputConstants.Type.KEYSYM,
+                    GLFW.GLFW_KEY_LEFT_BRACKET,
+                    "category.boosted-brightness.title");
+
+            event.register(NEXT_BIND);
+            event.register(RAISE_BIND);
+            event.register(LOWER_BIND);
+
+            for (int i = 0; i < MAX_BRIGHTNESSES; i++) {
+                SELECT_BINDS[i] = new KeyMapping(
+                        "key.boosted-brightness.select" + (i + 1),
+                        InputConstants.Type.KEYSYM,
+                        GLFW.GLFW_KEY_UNKNOWN,
+                        "category.boosted-brightness.title");
+                event.register(SELECT_BINDS[i]);
+            }
+        }
     }
 
     public static int numBrightnesses() {
@@ -92,7 +105,7 @@ public class BoostedBrightness implements ClientModInitializer {
 
     public static void setBrightnessIndex(int index) {
         brightnessIndex = index;
-        client.options.getGamma().setValue(getBrightness());
+        setGammaValue(getBrightness());
     }
 
     public static double getBrightness() {
@@ -105,8 +118,30 @@ public class BoostedBrightness implements ClientModInitializer {
 
     public static void changeBrightness(double brightness) {
         brightnesses.set(getBrightnessIndex(), brightness);
-        client.options.getGamma().setValue(getBrightness());
-    } 
+        setGammaValue(getBrightness());
+    }
+
+    /**
+     * Sets the gamma value directly, bypassing OptionInstance validation.
+     * This allows values outside the normal 0-1 range.
+     */
+    public static void setGammaValue(double value) {
+        if (client == null || client.options == null)
+            return;
+        try {
+            OptionInstance<Double> gamma = client.options.gamma();
+            // Use reflection to directly set the value field, bypassing validation
+            java.lang.reflect.Field valueField = OptionInstance.class.getDeclaredField("value");
+            valueField.setAccessible(true);
+            valueField.set(gamma, value);
+        } catch (Exception e) {
+            // Fallback to normal set if reflection fails (value clamped to 0-1)
+            try {
+                client.options.gamma().set(Math.max(0.0, Math.min(1.0, value)));
+            } catch (Exception ignored) {
+            }
+        }
+    }
 
     public static void changeBrightness(int index, double brightness) {
         if (index == brightnessIndex)
@@ -115,7 +150,7 @@ public class BoostedBrightness implements ClientModInitializer {
             brightnesses.set(index, brightness);
     }
 
-    private void loadConfig() {
+    private static void loadConfig() {
         try {
             JsonObject config = GSON.fromJson(new String(Files.readAllBytes(getConfigPath())), JsonObject.class);
             asDouble(config.get("min"), min -> minBrightness = min);
@@ -129,19 +164,17 @@ public class BoostedBrightness implements ClientModInitializer {
 
             asInt(config.get("selected"), selected -> brightnessIndex = selected - 1);
             brightnessIndex = Math.max(0, Math.min(numBrightnesses() - 1, brightnessIndex));
-            
+
             if (config.has("last")) {
                 asInt(config.get("last"), last -> lastBrightnessIndex = last - 1);
                 lastBrightnessIndex = Math.max(0, Math.min(numBrightnesses() - 1, lastBrightnessIndex));
             } else {
                 lastBrightnessIndex = 0;
             }
-        }
-        catch (IOException | JsonSyntaxException ex) {
+        } catch (IOException | JsonSyntaxException ex) {
             logException(ex, "Failed to load BoostedBrightness config");
         }
 
-        // If the config file fails to properly load, default to 2 brightness levels
         if (brightnesses == null || brightnesses.size() < 2) {
             brightnesses = new ArrayList<>();
             brightnesses.add(1.0);
@@ -156,7 +189,6 @@ public class BoostedBrightness implements ClientModInitializer {
         config.addProperty("min", minBrightness);
         config.addProperty("max", maxBrightness);
         config.addProperty("step", step);
-        // Store selectedBrightness + 1 for human readability
         config.addProperty("selected", brightnessIndex + 1);
         config.addProperty("last", lastBrightnessIndex + 1);
 
@@ -166,52 +198,51 @@ public class BoostedBrightness implements ClientModInitializer {
 
         try {
             Files.write(getConfigPath(), GSON.toJson(config).getBytes());
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             logException(ex, "Failed to save BoostedBrightness config");
         }
     }
 
     private static Path getConfigPath() {
-        return FabricLoader.getInstance().getConfigDir().resolve("boostedbrightness.json");
+        return FMLPaths.CONFIGDIR.get().resolve("boostedbrightness.json");
     }
 
-    private void asDouble(JsonElement element, DoubleConsumer onSuccess) {
+    private static void asDouble(JsonElement element, DoubleConsumer onSuccess) {
         if (element != null && element.isJsonPrimitive() && ((JsonPrimitive) element).isNumber()) {
             onSuccess.accept(element.getAsDouble());
         }
     }
 
-    private void asInt(JsonElement element, IntConsumer onSuccess) {
+    private static void asInt(JsonElement element, IntConsumer onSuccess) {
         if (element != null && element.isJsonPrimitive() && ((JsonPrimitive) element).isNumber()) {
             onSuccess.accept(element.getAsInt());
         }
     }
 
-    private void showOverlay(MinecraftClient client) {
-        client.inGameHud.setOverlayMessage(
-            Text.translatable(
-                "overlay.boosted-brightness.change",
-                new Object[]{
-                    getBrightnessIndex() + 1,
-                    Math.round(getBrightness() * 100)
-                }
-            ).styled(s -> s.withColor(GREEN)),
-            false
-        );
+    private void showOverlay(Minecraft client) {
+        client.gui.setOverlayMessage(
+                Component.translatable(
+                        "overlay.boosted-brightness.change",
+                        getBrightnessIndex() + 1,
+                        Math.round(getBrightness() * 100)).withStyle(ChatFormatting.GREEN),
+                false);
     }
 
-    private void onEndTick(MinecraftClient client) {
-        // Check next brightness keybind
-        while (NEXT_BIND.wasPressed()) {
+    @SubscribeEvent
+    public void onClientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase != TickEvent.Phase.END)
+            return;
+        if (client == null || client.player == null)
+            return;
+
+        while (NEXT_BIND != null && NEXT_BIND.consumeClick()) {
             lastBrightnessIndex = getBrightnessIndex();
             setBrightnessIndex((lastBrightnessIndex + 1) % numBrightnesses());
             showOverlay(client);
         }
- 
-        // Check set brightness keybind
+
         for (int i = 0; i < numBrightnesses(); i++) {
-            while (SELECT_BINDS[i].wasPressed()) {
+            while (SELECT_BINDS[i] != null && SELECT_BINDS[i].consumeClick()) {
                 int nextBrightnessIndex = (i != brightnessIndex) ? i : lastBrightnessIndex;
                 lastBrightnessIndex = getBrightnessIndex();
                 setBrightnessIndex(nextBrightnessIndex);
@@ -219,16 +250,14 @@ public class BoostedBrightness implements ClientModInitializer {
             }
         }
 
-        // Check raise/lower keybinds
         double offset = 0;
-        while (RAISE_BIND.wasPressed()) {
+        while (RAISE_BIND != null && RAISE_BIND.consumeClick()) {
             offset += step;
         }
-        while (LOWER_BIND.wasPressed()) {
+        while (LOWER_BIND != null && LOWER_BIND.consumeClick()) {
             offset -= step;
         }
-        
-        // Raise/lower selected brightness
+
         if (offset != 0) {
             double brightness = Math.max(minBrightness, Math.min(maxBrightness, getBrightness() + offset));
             changeBrightness(brightness);
@@ -237,6 +266,7 @@ public class BoostedBrightness implements ClientModInitializer {
     }
 
     public static void logException(Exception ex, String message) {
-        System.err.printf("[BoostedBrightness] %s (%s: %s)", message, ex.getClass().getSimpleName(), ex.getLocalizedMessage());
+        System.err.printf("[BoostedBrightness] %s (%s: %s)%n", message, ex.getClass().getSimpleName(),
+                ex.getLocalizedMessage());
     }
 }

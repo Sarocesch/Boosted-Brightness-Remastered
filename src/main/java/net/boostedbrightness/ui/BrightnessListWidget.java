@@ -6,96 +6,85 @@ import java.util.List;
 import java.util.Optional;
 
 import net.boostedbrightness.BoostedBrightness;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Element;
-import net.minecraft.client.gui.Selectable;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ElementListWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ContainerObjectSelectionList;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.network.chat.Component;
 
-public class BrightnessListWidget extends ElementListWidget<BrightnessListWidget.BrightnessEntry> {
+public class BrightnessListWidget extends ContainerObjectSelectionList<BrightnessListWidget.BrightnessEntry> {
 
-    @SuppressWarnings("unchecked")
-    public BrightnessListWidget(MinecraftClient client, int width, int height, int top, int bottom) {
-        super(client, width, height, top, bottom);
+    public BrightnessListWidget(Minecraft client, int width, int height, int y, int itemHeight) {
+        super(client, width, height, y, itemHeight);
 
-
-        if (client.options.getGamma().getValue() != BoostedBrightness.getBrightness()) {
-            BoostedBrightness.changeBrightness(client.options.getGamma().getValue());
+        if (client.options.gamma().get() != BoostedBrightness.getBrightness()) {
+            BoostedBrightness.changeBrightness(client.options.gamma().get());
         }
 
         for (int idx = 0; idx < BoostedBrightness.numBrightnesses(); idx++) {
-            this.addEntry(BrightnessListWidget.BrightnessEntry.create(idx, this.width, this));
+            this.addEntry(BrightnessEntry.create(idx, this.width, this));
         }
 
         if (BoostedBrightness.numBrightnesses() < BoostedBrightness.MAX_BRIGHTNESSES) {
-            this.addEntry(BrightnessListWidget.BrightnessEntry.create(-1, this.width, this));
+            this.addEntry(BrightnessEntry.create(-1, this.width, this));
         }
     }
 
     public void addBrightness() {
-        @SuppressWarnings("unchecked")
-        List<BrightnessEntry> entries = (List<BrightnessEntry>)(List<?>) this.children();
+        List<BrightnessEntry> entries = new ArrayList<>(this.children());
 
         BoostedBrightness.brightnesses.add(1.0);
         int size = BoostedBrightness.numBrightnesses();
 
-        entries.add(size - 1, BrightnessEntry.create(size - 1, this.width, this));
+        this.clearEntries();
+        for (int i = 0; i < size; i++) {
+            this.addEntry(BrightnessEntry.create(i, this.width, this));
+        }
 
-        if (size == BoostedBrightness.MAX_BRIGHTNESSES) {
-            entries.remove(BoostedBrightness.MAX_BRIGHTNESSES);
+        if (size < BoostedBrightness.MAX_BRIGHTNESSES) {
+            this.addEntry(BrightnessEntry.create(-1, this.width, this));
         }
     }
 
     public void removeBrightness(int index) {
-        @SuppressWarnings("unchecked")
-        List<BrightnessEntry> entries = (List<BrightnessEntry>)(List<?>) this.children();
-
         int oldSize = BoostedBrightness.brightnesses.size();
-
         BoostedBrightness.brightnesses.remove(index);
-        entries.remove(oldSize - 1);
 
-        for (int i = index; i < oldSize - 1; i++) {
-            entries.get(i).updateValue();
+        this.clearEntries();
+        for (int i = 0; i < BoostedBrightness.numBrightnesses(); i++) {
+            this.addEntry(BrightnessEntry.create(i, this.width, this));
         }
 
-        if (oldSize == BoostedBrightness.MAX_BRIGHTNESSES) {
-            entries.add(BrightnessEntry.create(-1, this.width, this));
+        if (BoostedBrightness.numBrightnesses() < BoostedBrightness.MAX_BRIGHTNESSES) {
+            this.addEntry(BrightnessEntry.create(-1, this.width, this));
         }
-        if (BoostedBrightness.getBrightnessIndex() == BoostedBrightness.numBrightnesses()) {
-            BoostedBrightness.setBrightnessIndex(BoostedBrightness.getBrightnessIndex() - 1);
+
+        if (BoostedBrightness.getBrightnessIndex() >= BoostedBrightness.numBrightnesses()) {
+            BoostedBrightness.setBrightnessIndex(BoostedBrightness.numBrightnesses() - 1);
         }
     }
 
     @Override
     public int getRowWidth() {
-        // deine feste Breite, wie vorher
         return 300;
     }
 
     @Override
-    public int getRowLeft() {
-        return super.getRowLeft() + 32;
+    protected int getScrollbarPosition() {
+        return this.width / 2 + 160;
     }
 
-    public Optional<ClickableWidget> getHoveredButton(double mouseX, double mouseY) {
-        Iterator<BrightnessEntry> it = this.children().iterator();
-
-        while (it.hasNext()) {
-            BrightnessListWidget.BrightnessEntry buttonEntry = it.next();
-            Iterator<ClickableWidget> inner = buttonEntry.buttons.iterator();
-
-            while (inner.hasNext()) {
-                ClickableWidget abstractButtonWidget = inner.next();
-                if (abstractButtonWidget.isMouseOver(mouseX, mouseY)) {
-                    return Optional.of(abstractButtonWidget);
+    public Optional<AbstractWidget> getHoveredButton(double mouseX, double mouseY) {
+        for (BrightnessEntry entry : this.children()) {
+            for (AbstractWidget button : entry.buttons) {
+                if (button.isMouseOver(mouseX, mouseY)) {
+                    return Optional.of(button);
                 }
             }
         }
-
         return Optional.empty();
     }
 
@@ -103,55 +92,55 @@ public class BrightnessListWidget extends ElementListWidget<BrightnessListWidget
         return BoostedBrightness.getBrightnessIndex() == index;
     }
 
-    public static class BrightnessEntry extends ElementListWidget.Entry<BrightnessListWidget.BrightnessEntry> {
-        private final List<ClickableWidget> buttons;
+    public static class BrightnessEntry extends ContainerObjectSelectionList.Entry<BrightnessEntry> {
+        final List<AbstractWidget> buttons;
         private final BrightnessListWidget listWidget;
+        private final int index;
 
-        private int index;
-
-        private BrightnessEntry(List<ClickableWidget> buttons, int index, BrightnessListWidget listWidget) {
+        private BrightnessEntry(List<AbstractWidget> buttons, int index, BrightnessListWidget listWidget) {
             this.buttons = buttons;
             this.listWidget = listWidget;
             this.index = index;
         }
 
-        public static BrightnessListWidget.BrightnessEntry create(int index, int width, BrightnessListWidget listWidget) {
-            ArrayList<ClickableWidget> widgets = new ArrayList<>();
+        public static BrightnessEntry create(int index, int width, BrightnessListWidget listWidget) {
+            ArrayList<AbstractWidget> widgets = new ArrayList<>();
 
             if (index >= 0) {
                 widgets.add(new BrightnessSliderWidget(index, width / 2 - 120, 0, 240, 20,
                         BrightnessSliderWidget.sliderValue(BoostedBrightness.getBrightness(index))));
 
                 if (index >= 2) {
-                    widgets.add(ButtonWidget.builder(Text.literal("X"), (button) -> {
+                    widgets.add(Button.builder(Component.literal("X"), (button) -> {
                         listWidget.removeBrightness(index);
-                    }).size(20, 20).position(width / 2 + 120 + 5, 0).build());
+                    }).size(20, 20).pos(width / 2 + 120 + 5, 0).build());
                 }
             } else {
-                widgets.add(ButtonWidget.builder(Text.literal("+"), (button) -> {
+                widgets.add(Button.builder(Component.literal("+"), (button) -> {
                     listWidget.addBrightness();
-                }).size(240, 20).position(width / 2 - 120, 0).build());
+                }).size(240, 20).pos(width / 2 - 120, 0).build());
             }
 
             return new BrightnessEntry(widgets, index, listWidget);
         }
 
         public void updateValue() {
-            for (ClickableWidget button : buttons)
-                if (button instanceof BrightnessSliderWidget)
-                    ((BrightnessSliderWidget) button).updateValue();
+            for (AbstractWidget button : buttons)
+                if (button instanceof BrightnessSliderWidget slider)
+                    slider.updateValue();
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX,
-                           int mouseY, boolean hovered, float tickDelta) {
-            for (ClickableWidget button : this.buttons) {
+        public void render(GuiGraphics guiGraphics, int index, int y, int x, int entryWidth, int entryHeight,
+                int mouseX,
+                int mouseY, boolean hovered, float partialTick) {
+            for (AbstractWidget button : this.buttons) {
                 button.setY(y);
-                button.render(context, mouseX, mouseY, tickDelta);
+                button.render(guiGraphics, mouseX, mouseY, partialTick);
             }
 
             if (this.index >= 0) {
-                context.drawTextWithShadow(listWidget.client.textRenderer, String.valueOf(this.index + 1),
+                guiGraphics.drawString(listWidget.minecraft.font, String.valueOf(this.index + 1),
                         listWidget.width / 2 - 150 + 13, y + entryHeight / 3, 0xFFFFFF);
             }
         }
@@ -160,7 +149,7 @@ public class BrightnessListWidget extends ElementListWidget<BrightnessListWidget
         public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
             boolean mouseOnButton = false;
 
-            for (ClickableWidget button : this.buttons) {
+            for (AbstractWidget button : this.buttons) {
                 if (button.isMouseOver(mouseX, mouseY)) {
                     mouseOnButton = true;
                     break;
@@ -174,12 +163,12 @@ public class BrightnessListWidget extends ElementListWidget<BrightnessListWidget
         }
 
         @Override
-        public List<? extends Element> children() {
+        public List<? extends GuiEventListener> children() {
             return this.buttons;
         }
 
         @Override
-        public List<? extends Selectable> selectableChildren() {
+        public List<? extends NarratableEntry> narratables() {
             return this.buttons;
         }
     }
