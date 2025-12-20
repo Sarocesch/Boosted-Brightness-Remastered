@@ -51,8 +51,9 @@ public class MixinSimpleOption<T> {
             return;
 
         var content = this.caption.getContents();
-        if (!(content instanceof TranslatableContents translatable))
+        if (!(content instanceof TranslatableContents))
             return;
+        TranslatableContents translatable = (TranslatableContents) content;
 
         String key = translatable.getKey();
         if (!key.equals("options.gamma"))

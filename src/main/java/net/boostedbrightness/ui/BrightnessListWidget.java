@@ -17,8 +17,8 @@ import net.minecraft.network.chat.Component;
 
 public class BrightnessListWidget extends ContainerObjectSelectionList<BrightnessListWidget.BrightnessEntry> {
 
-    public BrightnessListWidget(Minecraft client, int width, int height, int y, int itemHeight) {
-        super(client, width, height, y, itemHeight);
+    public BrightnessListWidget(Minecraft client, int width, int height, int top, int bottom, int itemHeight) {
+        super(client, width, height, top, bottom, itemHeight);
 
         if (client.options.gamma().get() != BoostedBrightness.getBrightness()) {
             BoostedBrightness.changeBrightness(client.options.gamma().get());
@@ -125,9 +125,12 @@ public class BrightnessListWidget extends ContainerObjectSelectionList<Brightnes
         }
 
         public void updateValue() {
-            for (AbstractWidget button : buttons)
-                if (button instanceof BrightnessSliderWidget slider)
+            for (AbstractWidget button : buttons) {
+                if (button instanceof BrightnessSliderWidget) {
+                    BrightnessSliderWidget slider = (BrightnessSliderWidget) button;
                     slider.updateValue();
+                }
+            }
         }
 
         @Override

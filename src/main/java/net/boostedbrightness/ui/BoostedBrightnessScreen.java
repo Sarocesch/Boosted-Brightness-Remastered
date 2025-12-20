@@ -19,7 +19,7 @@ public class BoostedBrightnessScreen extends Screen {
 
     @Override
     protected void init() {
-        this.list = new BrightnessListWidget(this.minecraft, this.width, this.height - 64, 32, 25);
+        this.list = new BrightnessListWidget(this.minecraft, this.width, this.height, 32, this.height - 32, 25);
         this.addRenderableWidget(this.list);
 
         this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {

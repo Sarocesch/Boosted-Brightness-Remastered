@@ -3,7 +3,7 @@ package net.boostedbrightness.mixin;
 import net.boostedbrightness.BoostedBrightness;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.VideoSettingsScreen;
+import net.minecraft.client.gui.screens.VideoSettingsScreen;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.network.chat.Component;
