@@ -26,6 +26,7 @@ import org.lwjgl.glfw.GLFW;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.OptionInstance;
+import net.minecraft.resources.ResourceLocation;
 
 @Mod(BoostedBrightness.MODID)
 public class BoostedBrightness {
@@ -53,8 +54,11 @@ public class BoostedBrightness {
         NeoForge.EVENT_BUS.register(this);
     }
 
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
     public static class ClientModEvents {
+        private static final KeyMapping.Category KEY_CATEGORY = new KeyMapping.Category(
+                ResourceLocation.fromNamespaceAndPath(MODID, "keys"));
+
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             loadConfig();
@@ -63,23 +67,26 @@ public class BoostedBrightness {
 
         @SubscribeEvent
         public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
+            // Register our custom category
+            event.registerCategory(KEY_CATEGORY);
+
             NEXT_BIND = new KeyMapping(
                     "key.boosted-brightness.next",
                     InputConstants.Type.KEYSYM,
                     GLFW.GLFW_KEY_B,
-                    "category.boosted-brightness.title");
+                    KEY_CATEGORY);
 
             RAISE_BIND = new KeyMapping(
                     "key.boosted-brightness.raise",
                     InputConstants.Type.KEYSYM,
                     GLFW.GLFW_KEY_RIGHT_BRACKET,
-                    "category.boosted-brightness.title");
+                    KEY_CATEGORY);
 
             LOWER_BIND = new KeyMapping(
                     "key.boosted-brightness.lower",
                     InputConstants.Type.KEYSYM,
                     GLFW.GLFW_KEY_LEFT_BRACKET,
-                    "category.boosted-brightness.title");
+                    KEY_CATEGORY);
 
             event.register(NEXT_BIND);
             event.register(RAISE_BIND);
@@ -90,7 +97,7 @@ public class BoostedBrightness {
                         "key.boosted-brightness.select" + (i + 1),
                         InputConstants.Type.KEYSYM,
                         GLFW.GLFW_KEY_UNKNOWN,
-                        "category.boosted-brightness.title");
+                        KEY_CATEGORY);
                 event.register(SELECT_BINDS[i]);
             }
         }
