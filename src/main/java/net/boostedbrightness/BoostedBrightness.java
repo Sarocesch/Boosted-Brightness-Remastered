@@ -11,14 +11,15 @@ import com.google.gson.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.loading.FMLPaths;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -49,10 +50,10 @@ public class BoostedBrightness {
     public static Minecraft client;
 
     public BoostedBrightness() {
-        MinecraftForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(this);
     }
 
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
@@ -121,21 +122,15 @@ public class BoostedBrightness {
         setGammaValue(getBrightness());
     }
 
-    /**
-     * Sets the gamma value directly, bypassing OptionInstance validation.
-     * This allows values outside the normal 0-1 range.
-     */
     public static void setGammaValue(double value) {
         if (client == null || client.options == null)
             return;
         try {
             OptionInstance<Double> gamma = client.options.gamma();
-            // Use reflection to directly set the value field, bypassing validation
             java.lang.reflect.Field valueField = OptionInstance.class.getDeclaredField("value");
             valueField.setAccessible(true);
             valueField.set(gamma, value);
         } catch (Exception e) {
-            // Fallback to normal set if reflection fails (value clamped to 0-1)
             try {
                 client.options.gamma().set(Math.max(0.0, Math.min(1.0, value)));
             } catch (Exception ignored) {
@@ -229,9 +224,7 @@ public class BoostedBrightness {
     }
 
     @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END)
-            return;
+    public void onClientTick(ClientTickEvent.Post event) {
         if (client == null || client.player == null)
             return;
 
