@@ -11,30 +11,29 @@ import com.google.gson.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
+import net.minecraft.resources.Identifier;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.glfw.GLFW;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.OptionInstance;
-import net.minecraft.resources.ResourceLocation;
 
 @Mod(BoostedBrightness.MODID)
-// Note: Not using @Mod.EventBusSubscriber since Forge 60 EventBus API changes
+// Note: Not using @Mod.EventBusSubscriber since Forge 61 EventBus API changes
 // Event registration is done manually in the constructor
 public class BoostedBrightness {
     public static final String MODID = "boostedbrightness";
     public static final int MAX_BRIGHTNESSES = 5;
     private static final Gson GSON = new Gson();
 
+    // Key category for key bindings using Identifier (renamed from ResourceLocation
+    // in 1.21.11)
     public static final KeyMapping.Category KEY_CATEGORY = new KeyMapping.Category(
-            ResourceLocation.fromNamespaceAndPath(MODID, "keys"));
+            Identifier.tryParse(MODID + ":" + "keys"));
 
     public static double minBrightness = -1.0;
     public static double maxBrightness = 12.0;
@@ -56,7 +55,7 @@ public class BoostedBrightness {
 
     public BoostedBrightness() {
         instance = this;
-        // Note: Forge 60 EventBus API has changed significantly
+        // Note: Forge 61 EventBus API has changed significantly
         // Config loading moved to static init
         loadConfig();
         client = Minecraft.getInstance();
@@ -69,21 +68,19 @@ public class BoostedBrightness {
 
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         // Create key mappings with our category
+        // Forge 61 uses KeyMapping(String, int, Category)
         NEXT_BIND = new KeyMapping(
                 "key.boosted-brightness.next",
-                InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_B,
                 KEY_CATEGORY);
 
         RAISE_BIND = new KeyMapping(
                 "key.boosted-brightness.raise",
-                InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_RIGHT_BRACKET,
                 KEY_CATEGORY);
 
         LOWER_BIND = new KeyMapping(
                 "key.boosted-brightness.lower",
-                InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_LEFT_BRACKET,
                 KEY_CATEGORY);
 
@@ -94,7 +91,6 @@ public class BoostedBrightness {
         for (int i = 0; i < MAX_BRIGHTNESSES; i++) {
             SELECT_BINDS[i] = new KeyMapping(
                     "key.boosted-brightness.select" + (i + 1),
-                    InputConstants.Type.KEYSYM,
                     GLFW.GLFW_KEY_UNKNOWN,
                     KEY_CATEGORY);
             event.register(SELECT_BINDS[i]);
