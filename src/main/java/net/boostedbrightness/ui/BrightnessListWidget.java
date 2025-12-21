@@ -72,11 +72,6 @@ public class BrightnessListWidget extends ContainerObjectSelectionList<Brightnes
         return 300;
     }
 
-    @Override
-    protected int getScrollbarPosition() {
-        return this.width / 2 + 160;
-    }
-
     public Optional<AbstractWidget> getHoveredButton(double mouseX, double mouseY) {
         for (BrightnessEntry entry : this.children()) {
             for (AbstractWidget button : entry.buttons) {
@@ -131,9 +126,9 @@ public class BrightnessListWidget extends ContainerObjectSelectionList<Brightnes
         }
 
         @Override
-        public void render(GuiGraphics guiGraphics, int index, int y, int x, int entryWidth, int entryHeight,
-                int mouseX,
-                int mouseY, boolean hovered, float partialTick) {
+        public void renderContent(GuiGraphics guiGraphics, int x, int y, boolean hovered, float partialTick) {
+            int mouseX = (int) this.listWidget.minecraft.mouseHandler.xpos();
+            int mouseY = (int) this.listWidget.minecraft.mouseHandler.ypos();
             for (AbstractWidget button : this.buttons) {
                 button.setY(y);
                 button.render(guiGraphics, mouseX, mouseY, partialTick);
@@ -141,25 +136,21 @@ public class BrightnessListWidget extends ContainerObjectSelectionList<Brightnes
 
             if (this.index >= 0) {
                 guiGraphics.drawString(listWidget.minecraft.font, String.valueOf(this.index + 1),
-                        listWidget.width / 2 - 150 + 13, y + entryHeight / 3, 0xFFFFFF);
+                        listWidget.width / 2 - 150 + 13, y + 6, 0xFFFFFF);
             }
         }
 
-        @Override
-        public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-            boolean mouseOnButton = false;
-
+        public boolean handleClick(double mouseX, double mouseY, int mouseButton) {
             for (AbstractWidget button : this.buttons) {
                 if (button.isMouseOver(mouseX, mouseY)) {
-                    mouseOnButton = true;
-                    break;
+                    // Let the widget handle its own click
+                    return true;
                 }
             }
-            if (!mouseOnButton && this.index >= 0) {
+            if (this.index >= 0) {
                 BoostedBrightness.setBrightnessIndex(this.index);
             }
-
-            return super.mouseClicked(mouseX, mouseY, mouseButton);
+            return true;
         }
 
         @Override

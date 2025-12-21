@@ -28,7 +28,7 @@ public abstract class MixinOptionsScreen extends Screen {
                 initial = gammaOpt.get();
         } catch (Throwable ignored) {
         }
-
+9
         AbstractSliderButton customSlider = new AbstractSliderButton(10, 10, 200, 20,
                 Component.literal("Boosted Brightness"), initial) {
 

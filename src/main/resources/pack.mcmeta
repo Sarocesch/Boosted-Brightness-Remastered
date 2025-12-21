@@ -1,6 +1,8 @@
 {
     "pack": {
         "description": "Boosted Brightness Resources",
-        "pack_format": 34
+        "pack_format": 69,
+        "min_format": [64, 0],
+        "max_format": [69, 0]
     }
 }
