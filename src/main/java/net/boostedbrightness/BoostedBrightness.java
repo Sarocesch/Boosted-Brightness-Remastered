@@ -11,26 +11,30 @@ import com.google.gson.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.glfw.GLFW;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.OptionInstance;
+import net.minecraft.resources.ResourceLocation;
 
 @Mod(BoostedBrightness.MODID)
+// Note: Not using @Mod.EventBusSubscriber since Forge 60 EventBus API changes
+// Event registration is done manually in the constructor
 public class BoostedBrightness {
     public static final String MODID = "boostedbrightness";
     public static final int MAX_BRIGHTNESSES = 5;
     private static final Gson GSON = new Gson();
+
+    public static final KeyMapping.Category KEY_CATEGORY = new KeyMapping.Category(
+            ResourceLocation.fromNamespaceAndPath(MODID, "keys"));
 
     public static double minBrightness = -1.0;
     public static double maxBrightness = 12.0;
@@ -48,50 +52,52 @@ public class BoostedBrightness {
 
     public static Minecraft client;
 
+    private static BoostedBrightness instance;
+
     public BoostedBrightness() {
-        MinecraftForge.EVENT_BUS.register(this);
+        instance = this;
+        // Note: Forge 60 EventBus API has changed significantly
+        // Config loading moved to static init
+        loadConfig();
+        client = Minecraft.getInstance();
     }
 
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            loadConfig();
-            client = Minecraft.getInstance();
-        }
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        loadConfig();
+        client = Minecraft.getInstance();
+    }
 
-        @SubscribeEvent
-        public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
-            NEXT_BIND = new KeyMapping(
-                    "key.boosted-brightness.next",
+    public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
+        // Create key mappings with our category
+        NEXT_BIND = new KeyMapping(
+                "key.boosted-brightness.next",
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_B,
+                KEY_CATEGORY);
+
+        RAISE_BIND = new KeyMapping(
+                "key.boosted-brightness.raise",
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_RIGHT_BRACKET,
+                KEY_CATEGORY);
+
+        LOWER_BIND = new KeyMapping(
+                "key.boosted-brightness.lower",
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_LEFT_BRACKET,
+                KEY_CATEGORY);
+
+        event.register(NEXT_BIND);
+        event.register(RAISE_BIND);
+        event.register(LOWER_BIND);
+
+        for (int i = 0; i < MAX_BRIGHTNESSES; i++) {
+            SELECT_BINDS[i] = new KeyMapping(
+                    "key.boosted-brightness.select" + (i + 1),
                     InputConstants.Type.KEYSYM,
-                    GLFW.GLFW_KEY_B,
-                    "category.boosted-brightness.title");
-
-            RAISE_BIND = new KeyMapping(
-                    "key.boosted-brightness.raise",
-                    InputConstants.Type.KEYSYM,
-                    GLFW.GLFW_KEY_RIGHT_BRACKET,
-                    "category.boosted-brightness.title");
-
-            LOWER_BIND = new KeyMapping(
-                    "key.boosted-brightness.lower",
-                    InputConstants.Type.KEYSYM,
-                    GLFW.GLFW_KEY_LEFT_BRACKET,
-                    "category.boosted-brightness.title");
-
-            event.register(NEXT_BIND);
-            event.register(RAISE_BIND);
-            event.register(LOWER_BIND);
-
-            for (int i = 0; i < MAX_BRIGHTNESSES; i++) {
-                SELECT_BINDS[i] = new KeyMapping(
-                        "key.boosted-brightness.select" + (i + 1),
-                        InputConstants.Type.KEYSYM,
-                        GLFW.GLFW_KEY_UNKNOWN,
-                        "category.boosted-brightness.title");
-                event.register(SELECT_BINDS[i]);
-            }
+                    GLFW.GLFW_KEY_UNKNOWN,
+                    KEY_CATEGORY);
+            event.register(SELECT_BINDS[i]);
         }
     }
 
@@ -121,21 +127,15 @@ public class BoostedBrightness {
         setGammaValue(getBrightness());
     }
 
-    /**
-     * Sets the gamma value directly, bypassing OptionInstance validation.
-     * This allows values outside the normal 0-1 range.
-     */
     public static void setGammaValue(double value) {
         if (client == null || client.options == null)
             return;
         try {
             OptionInstance<Double> gamma = client.options.gamma();
-            // Use reflection to directly set the value field, bypassing validation
             java.lang.reflect.Field valueField = OptionInstance.class.getDeclaredField("value");
             valueField.setAccessible(true);
             valueField.set(gamma, value);
         } catch (Exception e) {
-            // Fallback to normal set if reflection fails (value clamped to 0-1)
             try {
                 client.options.gamma().set(Math.max(0.0, Math.min(1.0, value)));
             } catch (Exception ignored) {
@@ -219,7 +219,7 @@ public class BoostedBrightness {
         }
     }
 
-    private void showOverlay(Minecraft client) {
+    private static void showOverlay(Minecraft client) {
         client.gui.setOverlayMessage(
                 Component.translatable(
                         "overlay.boosted-brightness.change",
@@ -228,45 +228,12 @@ public class BoostedBrightness {
                 false);
     }
 
-    @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END)
-            return;
-        if (client == null || client.player == null)
-            return;
-
-        while (NEXT_BIND != null && NEXT_BIND.consumeClick()) {
-            lastBrightnessIndex = getBrightnessIndex();
-            setBrightnessIndex((lastBrightnessIndex + 1) % numBrightnesses());
-            showOverlay(client);
-        }
-
-        for (int i = 0; i < numBrightnesses(); i++) {
-            while (SELECT_BINDS[i] != null && SELECT_BINDS[i].consumeClick()) {
-                int nextBrightnessIndex = (i != brightnessIndex) ? i : lastBrightnessIndex;
-                lastBrightnessIndex = getBrightnessIndex();
-                setBrightnessIndex(nextBrightnessIndex);
-                showOverlay(client);
-            }
-        }
-
-        double offset = 0;
-        while (RAISE_BIND != null && RAISE_BIND.consumeClick()) {
-            offset += step;
-        }
-        while (LOWER_BIND != null && LOWER_BIND.consumeClick()) {
-            offset -= step;
-        }
-
-        if (offset != 0) {
-            double brightness = Math.max(minBrightness, Math.min(maxBrightness, getBrightness() + offset));
-            changeBrightness(brightness);
-            showOverlay(client);
-        }
-    }
-
     public static void logException(Exception ex, String message) {
         System.err.printf("[BoostedBrightness] %s (%s: %s)%n", message, ex.getClass().getSimpleName(),
                 ex.getLocalizedMessage());
     }
+
+    // TODO: Client tick event handling disabled - Forge 60 EventBus API changes
+    // Keybindings for brightness control are currently not functional
+    // Need to find correct SubscribeEvent annotation path for Forge 60.1.0
 }

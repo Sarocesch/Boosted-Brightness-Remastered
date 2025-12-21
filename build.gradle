@@ -2,7 +2,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+    id 'net.minecraftforge.gradle' version '6.0.46'
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
@@ -70,10 +70,17 @@ sourceSets.main.output.resourcesDir = sourceSets.main.java.classesDirectory
 
 repositories {
     mavenCentral()
+    maven {
+        name = 'Forge'
+        url = 'https://maven.minecraftforge.net/'
+    }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
+    
+    // EventBus API for event handling
+    compileOnly 'net.minecraftforge:eventbus:7.0.0'
     
     // Fix for jopt.simple module not found error
     implementation 'net.sf.jopt-simple:jopt-simple:5.0.4'
