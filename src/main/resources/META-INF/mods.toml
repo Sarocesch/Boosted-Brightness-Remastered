@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[61,)"
+loaderVersion="[62,)"
 license="MIT"
 issueTrackerURL="https://github.com/adamviola/BoostedBrightness/issues"
 
@@ -25,7 +25,8 @@ side="CLIENT"
 [[dependencies.boostedbrightness]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.21.11,1.22)"
+versionRange="[26.1,)"
 ordering="NONE"
 side="CLIENT"
+
 

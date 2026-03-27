@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import net.boostedbrightness.BoostedBrightness;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
@@ -132,17 +132,17 @@ public class BrightnessListWidget extends ContainerObjectSelectionList<Brightnes
 
         // Note: In MC 1.21.10, render signature changed to renderContent
         // Using renderContent with simplified signature
-        public void renderContent(GuiGraphics guiGraphics, int index, int mouseX, boolean hovered, float partialTick) {
+        public void extractContent(GuiGraphicsExtractor guiGraphics, int index, int mouseX, boolean hovered, float partialTick) {
             int y = this.listWidget.getRowTop(index);
             int entryHeight = 24; // Fixed height for entries
 
             for (AbstractWidget button : this.buttons) {
                 button.setY(y);
-                button.render(guiGraphics, mouseX, y, partialTick);
+                button.extractRenderState(guiGraphics, mouseX, y, partialTick);
             }
 
             if (this.index >= 0) {
-                guiGraphics.drawString(listWidget.minecraft.font, String.valueOf(this.index + 1),
+                guiGraphics.text(listWidget.minecraft.font, String.valueOf(this.index + 1),
                         listWidget.width / 2 - 150 + 13, y + entryHeight / 3, 0xFFFFFF);
             }
         }

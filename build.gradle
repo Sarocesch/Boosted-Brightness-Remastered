@@ -1,134 +1,57 @@
 plugins {
-    id 'eclipse'
+    id 'java'
     id 'idea'
-    id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '6.0.46'
-    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'eclipse'
+    id 'net.minecraftforge.gradle' version '[7.0.17,8)'
 }
 
-version = project.mod_version
-group = project.maven_group
+version = '1.0'
+group = 'de.sarocesch.boostedbrightness'
 
-base {
-    archivesName = project.archives_base_name
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-
-minecraft {
-    mappings channel: 'official', version: project.minecraft_version
-
-    // Access Transformer for OptionInstance fields
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
-    copyIdeResources = true
-
-    runs {
-        configureEach {
-            workingDirectory project.file('run')
-            
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        client {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
-
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        data {
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-        }
-    }
-}
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-// Fix for Forge userdev: Put resources and classes in the same output directory
-// This ensures Forge can find @Mod classes when loading from resources/main
-sourceSets.main.output.resourcesDir = sourceSets.main.java.classesDirectory
+minecraft {
+    accessTransformers.from layout.projectDirectory.file('src/main/resources/META-INF/accesstransformer.cfg')
+    runs {
+        configureEach {
+            workingDir = layout.projectDirectory.dir('run')
+            systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
+            systemProperty 'forge.enabledGameTestNamespaces', 'boostedbrightness'
+        }
+        register('client')
+        register('server') { args '--nogui' }
+        register('gameTestServer')
+        register('data') {
+            workingDir = layout.projectDirectory.dir('run-data')
+            args '--mod', 'boostedbrightness', '--all', '--output', layout.projectDirectory.dir('src/generated/resources'), '--existing', layout.projectDirectory.dir('src/main/resources')
+        }
+    }
+}
 
 repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
     mavenCentral()
-    maven {
-        name = 'Forge'
-        url = 'https://maven.minecraftforge.net/'
-    }
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
-    
-    // EventBus API for event handling
-    compileOnly 'net.minecraftforge:eventbus:7.0.0'
-    
-    // Fix for jopt.simple module not found error
-    implementation 'net.sf.jopt-simple:jopt-simple:5.0.4'
-    
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    implementation minecraft.dependency('net.minecraftforge:forge:26.1-62.0.3')
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.1'
 }
 
-// Mixin configuration - no refmap needed for official mappings in dev
-mixin {
-    config "${mod_id}.mixins.json"
-}
-
-tasks.named('jar', Jar).configure {
+jar {
     manifest {
         attributes([
-            'Specification-Title'     : mod_id,
-            'Specification-Vendor'    : 'boostedbrightness',
-            'Specification-Version'   : '1',
-            'Implementation-Title'    : project.name,
-            'Implementation-Version'  : project.jar.archiveVersion,
-            'Implementation-Vendor'   : 'boostedbrightness',
-            'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            'MixinConfigs'            : "${mod_id}.mixins.json"
+            "MixinConfigs": "boostedbrightness.mixins.json"
         ])
     }
-    finalizedBy 'reobfJar'
+    // Exclude dev-mode MANIFEST.MF from resources — jar task generates its own
+    exclude 'META-INF/MANIFEST.MF'
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-}
-
-// Configure run tasks to use Java 21 toolchain
-tasks.withType(JavaExec).configureEach {
-    javaLauncher = javaToolchains.launcherFor {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
-        }
-    }
 }

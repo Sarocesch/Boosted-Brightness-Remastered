@@ -30,7 +30,7 @@ public class BoostedBrightness {
     public static final int MAX_BRIGHTNESSES = 5;
     private static final Gson GSON = new Gson();
 
-    // Key category for key bindings using Identifier (renamed from ResourceLocation
+    // Key category for key bindings using Identifier (renamed from Identifier
     // in 1.21.11)
     public static final KeyMapping.Category KEY_CATEGORY = new KeyMapping.Category(
             Identifier.tryParse(MODID + ":" + "keys"));
