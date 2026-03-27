@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import net.boostedbrightness.BoostedBrightness;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
@@ -126,16 +126,16 @@ public class BrightnessListWidget extends ContainerObjectSelectionList<Brightnes
         }
 
         @Override
-        public void renderContent(GuiGraphics guiGraphics, int x, int y, boolean hovered, float partialTick) {
+        public void extractContent(GuiGraphicsExtractor guiGraphics, int x, int y, boolean hovered, float partialTick) {
             int mouseX = (int) this.listWidget.minecraft.mouseHandler.xpos();
             int mouseY = (int) this.listWidget.minecraft.mouseHandler.ypos();
             for (AbstractWidget button : this.buttons) {
                 button.setY(y);
-                button.render(guiGraphics, mouseX, mouseY, partialTick);
+                button.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
             }
 
             if (this.index >= 0) {
-                guiGraphics.drawString(listWidget.minecraft.font, String.valueOf(this.index + 1),
+                guiGraphics.text(listWidget.minecraft.font, String.valueOf(this.index + 1),
                         listWidget.width / 2 - 150 + 13, y + 6, 0xFFFFFF);
             }
         }
