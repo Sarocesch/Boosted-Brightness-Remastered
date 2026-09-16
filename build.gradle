@@ -84,11 +84,12 @@ dependencies {
     
     // Fix for jopt.simple module not found error
     implementation 'net.sf.jopt-simple:jopt-simple:5.0.4'
-    
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 // Mixin configuration - no refmap needed for official mappings in dev
+// Mixin config registration for the dev run only.
+// No annotation processor and no reobfJar: this MC version runs on Mojang mappings,
+// an SRG refmap / reobfuscated @Shadow field would not resolve at runtime.
 mixin {
     config "${mod_id}.mixins.json"
 }
@@ -106,7 +107,6 @@ tasks.named('jar', Jar).configure {
             'MixinConfigs'            : "${mod_id}.mixins.json"
         ])
     }
-    finalizedBy 'reobfJar'
 }
 
 tasks.withType(JavaCompile).configureEach {
