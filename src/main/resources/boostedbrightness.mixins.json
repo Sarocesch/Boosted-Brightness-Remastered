@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "net.boostedbrightness.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "boostedbrightness.refmap.json",
+  "client": [
+    "MixinGammaOption",
+    "MixinMinecraftClient",
+    "MixinOptionsScreen",
+    "MixinSimpleOption"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
