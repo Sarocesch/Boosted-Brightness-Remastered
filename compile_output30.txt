@@ -1,0 +1,209 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+MixinGradle did not locate the diffplug APT plugin, skipping eclipse task configuration
+Java: 25, JVM: 25+36-LTS (Eclipse Adoptium), Arch: amd64
+
+> Task :downloadMcpConfig
+> Task :extractSrg UP-TO-DATE
+> Task :createMcpToSrg UP-TO-DATE
+> Task :compileJava
+Hinweis: Einige Eingabedateien verwenden oder ├╝berschreiben eine veraltete API.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:deprecation, um Details zu erhalten.
+Hinweis: Einige Eingabedateien verwenden oder ├╝berschreiben eine veraltete API, die zum Entfernen markiert ist.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:removal, um Details zu erhalten.
+Hinweis: Einige Eingabedateien verwenden nicht gepr├╝fte oder unsichere Vorg├ñnge.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:unchecked, um Details zu erhalten.
+Im Compiler (21.0.8) ist eine Ausnahme aufgetreten. Erstellen Sie auf der Java-Seite zum Melden von Bugs (https://bugreport.java.com) einen Bugbericht, nachdem Sie die Bugdatenbank (https://bugs.java.com) auf Duplikate gepr├╝ft haben. Geben Sie in Ihrem Bericht Ihr Programm, die folgende Diagnose und die Parameter an, die Sie dem Java-Compiler ├╝bergeben haben. Vielen Dank.
+java.lang.OutOfMemoryError: Java heap space
+	at java.base/java.lang.StringLatin1.toChars(StringLatin1.java:71)
+	at java.base/java.lang.String.toCharArray(String.java:4348)
+	at java.base/sun.nio.fs.WindowsNativeDispatcher.asNativeBuffer(WindowsNativeDispatcher.java:1166)
+	at java.base/sun.nio.fs.WindowsNativeDispatcher.GetFileAttributesEx(WindowsNativeDispatcher.java:435)
+	at java.base/sun.nio.fs.WindowsFileAttributes.get(WindowsFileAttributes.java:299)
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.implDelete(WindowsFileSystemProvider.java:249)
+	at java.base/sun.nio.fs.AbstractFileSystemProvider.delete(AbstractFileSystemProvider.java:105)
+	at java.base/java.nio.file.Files.delete(Files.java:1153)
+	at jdk.compiler/com.sun.tools.javac.file.PathFileObject.delete(PathFileObject.java:505)
+	at jdk.compiler/com.sun.tools.javac.jvm.ClassWriter.writeClass(ClassWriter.java:1556)
+	at jdk.compiler/com.sun.tools.javac.main.JavaCompiler.genCode(JavaCompiler.java:770)
+	at jdk.compiler/com.sun.tools.javac.main.JavaCompiler.generate(JavaCompiler.java:1710)
+	at jdk.compiler/com.sun.tools.javac.main.JavaCompiler.generate(JavaCompiler.java:1678)
+	at jdk.compiler/com.sun.tools.javac.main.JavaCompiler.compile(JavaCompiler.java:976)
+	at jdk.compiler/com.sun.tools.javac.api.JavacTaskImpl.lambda$doCall$0(JavacTaskImpl.java:104)
+	at jdk.compiler/com.sun.tools.javac.api.JavacTaskImpl$$Lambda/0x000002405622c578.call(Unknown Source)
+	at jdk.compiler/com.sun.tools.javac.api.JavacTaskImpl.invocationHelper(JavacTaskImpl.java:152)
+	at jdk.compiler/com.sun.tools.javac.api.JavacTaskImpl.doCall(JavacTaskImpl.java:100)
+	at jdk.compiler/com.sun.tools.javac.api.JavacTaskImpl.call(JavacTaskImpl.java:94)
+	at org.gradle.internal.compiler.java.IncrementalCompileTask.call(IncrementalCompileTask.java:92)
+	at org.gradle.api.internal.tasks.compile.AnnotationProcessingCompileTask.call(AnnotationProcessingCompileTask.java:94)
+	at org.gradle.api.internal.tasks.compile.ResourceCleaningCompilationTask.call(ResourceCleaningCompilationTask.java:57)
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:83)
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
+	at org.gradle.api.internal.tasks.compile.daemon.AbstractIsolatedCompilerWorkerExecutor$CompilerWorkAction.execute(AbstractIsolatedCompilerWorkerExecutor.java:78)
+	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:63)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker$1.create(AbstractClassLoaderWorker.java:54)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker$1.create(AbstractClassLoaderWorker.java:48)
+	at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:100)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker.executeInClassLoader(AbstractClassLoaderWorker.java:48)
+	at org.gradle.workers.internal.FlatClassLoaderWorker.run(FlatClassLoaderWorker.java:32)
+	at org.gradle.workers.internal.FlatClassLoaderWorker.run(FlatClassLoaderWorker.java:22)
+org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:deprecation, um Details zu erhalten.
+Hinweis: Einige Eingabedateien verwenden oder ├╝berschreiben eine veraltete API, die zum Entfernen markiert ist.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:unchecked, um Details zu erhalten.
+Hinweis: Einige Eingabedateien verwenden oder ├╝berschreiben eine veraltete API.
+Hinweis: Einige Eingabedateien verwenden nicht gepr├╝fte oder unsichere Vorg├ñnge.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:removal, um Details zu erhalten.
+
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
+	at org.gradle.api.internal.tasks.compile.daemon.AbstractIsolatedCompilerWorkerExecutor$CompilerWorkAction.execute(AbstractIsolatedCompilerWorkerExecutor.java:78)
+	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:63)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker$1.create(AbstractClassLoaderWorker.java:54)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker$1.create(AbstractClassLoaderWorker.java:48)
+	at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:100)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker.executeInClassLoader(AbstractClassLoaderWorker.java:48)
+	at org.gradle.workers.internal.FlatClassLoaderWorker.run(FlatClassLoaderWorker.java:32)
+	at org.gradle.workers.internal.FlatClassLoaderWorker.run(FlatClassLoaderWorker.java:22)
+	at org.gradle.workers.internal.WorkerDaemonServer.run(WorkerDaemonServer.java:108)
+	at org.gradle.workers.internal.WorkerDaemonServer.run(WorkerDaemonServer.java:77)
+	at org.gradle.process.internal.worker.request.WorkerAction.lambda$run$1(WorkerAction.java:150)
+	at org.gradle.process.internal.worker.child.WorkerLogEventListener.withWorkerLoggingProtocol(WorkerLogEventListener.java:41)
+	at org.gradle.process.internal.worker.request.WorkerAction.lambda$run$2(WorkerAction.java:150)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.process.internal.worker.request.WorkerAction.run(WorkerAction.java:142)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)
+	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:414)
+Compile failed in findRecomp. See log for more details
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Hinweis: Einige Eingabedateien verwenden oder ├╝berschreiben eine veraltete API.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:deprecation, um Details zu erhalten.
+Hinweis: Einige Eingabedateien verwenden oder ├╝berschreiben eine veraltete API, die zum Entfernen markiert ist.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:removal, um Details zu erhalten.
+Hinweis: Einige Eingabedateien verwenden nicht gepr├╝fte oder unsichere Vorg├ñnge.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:unchecked, um Details zu erhalten.
+Im Compiler (21.0.8) ist eine Ausnahme aufgetreten. Erstellen Sie auf der Java-Seite zum Melden von Bugs (https://bugreport.java.com) einen Bugbericht, nachdem Sie die Bugdatenbank (https://bugs.java.com) auf Duplikate gepr├╝ft haben. Geben Sie in Ihrem Bericht Ihr Programm, die folgende Diagnose und die Parameter an, die Sie dem Java-Compiler ├╝bergeben haben. Vielen Dank.
+java.lang.OutOfMemoryError: Java heap space
+	at jdk.compiler/com.sun.tools.javac.util.List.of(List.java:137)
+	at jdk.compiler/com.sun.tools.javac.comp.Infer$SubstBounds.apply(Infer.java:952)
+	at jdk.compiler/com.sun.tools.javac.comp.Infer.doIncorporation(Infer.java:1143)
+	at jdk.compiler/com.sun.tools.javac.comp.Infer$GraphSolver.solve(Infer.java:1669)
+	at jdk.compiler/com.sun.tools.javac.comp.InferenceContext.solve(InferenceContext.java:487)
+	at jdk.compiler/com.sun.tools.javac.comp.InferenceContext.solve(InferenceContext.java:494)
+	at jdk.compiler/com.sun.tools.javac.comp.Infer.instantiateMethod(Infer.java:211)
+	at jdk.compiler/com.sun.tools.javac.comp.Resolve.rawInstantiate(Resolve.java:618)
+	at jdk.compiler/com.sun.tools.javac.comp.Resolve.selectBest(Resolve.java:1584)
+	at jdk.compiler/com.sun.tools.javac.comp.Resolve.findMethodInScope(Resolve.java:1790)
+	at jdk.compiler/com.sun.tools.javac.comp.Resolve.findMethod(Resolve.java:1882)
+	at jdk.compiler/com.sun.tools.javac.comp.Resolve.findMethod(Resolve.java:1834)
+	at jdk.compiler/com.sun.tools.javac.comp.Resolve$12.doLookup(Resolve.java:2762)
+	at jdk.compiler/com.sun.tools.javac.comp.Resolve$BasicLookupHelper.lookup(Resolve.java:3477)
+	at jdk.compiler/com.sun.tools.javac.comp.Resolve.lookupMethod(Resolve.java:3729)
+	at jdk.compiler/com.sun.tools.javac.comp.Resolve.resolveQualifiedMethod(Resolve.java:2759)
+	at jdk.compiler/com.sun.tools.javac.comp.Resolve.resolveQualifiedMethod(Resolve.java:2753)
+	at jdk.compiler/com.sun.tools.javac.comp.Attr.selectSym(Attr.java:4552)
+	at jdk.compiler/com.sun.tools.javac.comp.Attr.visitSelect(Attr.java:4428)
+	at jdk.compiler/com.sun.tools.javac.tree.JCTree$JCFieldAccess.accept(JCTree.java:2581)
+	at jdk.compiler/com.sun.tools.javac.comp.Attr.attribTree(Attr.java:662)
+	at jdk.compiler/com.sun.tools.javac.comp.Attr.visitApply(Attr.java:2617)
+	at jdk.compiler/com.sun.tools.javac.tree.JCTree$JCMethodInvocation.accept(JCTree.java:1816)
+	at jdk.compiler/com.sun.tools.javac.comp.Attr.attribTree(Attr.java:662)
+	at jdk.compiler/com.sun.tools.javac.comp.Attr.visitSelect(Attr.java:4400)
+	at jdk.compiler/com.sun.tools.javac.tree.JCTree$JCFieldAccess.accept(JCTree.java:2581)
+	at jdk.compiler/com.sun.tools.javac.comp.Attr.attribTree(Attr.java:662)
+	at jdk.compiler/com.sun.tools.javac.comp.Attr.visitApply(Attr.java:2617)
+	at jdk.compiler/com.sun.tools.javac.tree.JCTree$JCMethodInvocation.accept(JCTree.java:1816)
+	at jdk.compiler/com.sun.tools.javac.comp.Attr.attribTree(Attr.java:662)
+	at jdk.compiler/com.sun.tools.javac.comp.Attr.visitLambda(Attr.java:3216)
+	at jdk.compiler/com.sun.tools.javac.tree.JCTree$JCLambda.accept(JCTree.java:1993)
+org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:deprecation, um Details zu erhalten.
+Hinweis: Einige Eingabedateien verwenden oder ├╝berschreiben eine veraltete API, die zum Entfernen markiert ist.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:unchecked, um Details zu erhalten.
+Hinweis: Einige Eingabedateien verwenden oder ├╝berschreiben eine veraltete API.
+Hinweis: Einige Eingabedateien verwenden nicht gepr├╝fte oder unsichere Vorg├ñnge.
+Hinweis: Wiederholen Sie die Kompilierung mit -Xlint:removal, um Details zu erhalten.
+
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:89)
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
+	at org.gradle.api.internal.tasks.compile.daemon.AbstractIsolatedCompilerWorkerExecutor$CompilerWorkAction.execute(AbstractIsolatedCompilerWorkerExecutor.java:78)
+	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:63)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker$1.create(AbstractClassLoaderWorker.java:54)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker$1.create(AbstractClassLoaderWorker.java:48)
+	at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:100)
+	at org.gradle.workers.internal.AbstractClassLoaderWorker.executeInClassLoader(AbstractClassLoaderWorker.java:48)
+	at org.gradle.workers.internal.FlatClassLoaderWorker.run(FlatClassLoaderWorker.java:32)
+	at org.gradle.workers.internal.FlatClassLoaderWorker.run(FlatClassLoaderWorker.java:22)
+	at org.gradle.workers.internal.WorkerDaemonServer.run(WorkerDaemonServer.java:108)
+	at org.gradle.workers.internal.WorkerDaemonServer.run(WorkerDaemonServer.java:77)
+	at org.gradle.process.internal.worker.request.WorkerAction.lambda$run$1(WorkerAction.java:150)
+	at org.gradle.process.internal.worker.child.WorkerLogEventListener.withWorkerLoggingProtocol(WorkerLogEventListener.java:41)
+	at org.gradle.process.internal.worker.request.WorkerAction.lambda$run$2(WorkerAction.java:150)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.process.internal.worker.request.WorkerAction.run(WorkerAction.java:142)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)
+	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:414)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Compile failed in findRecomp. See log for more details
+Hinweis: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7.38)
+Hinweis: Supported obfuscation types: ObfuscationServiceMCP supports [notch] ObfuscationServiceFG3 supports [searge]
+Hinweis: Loading searge mappings from T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\createMcpToSrg\output.tsrg
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\src\main\java\net\boostedbrightness\mixin\MixinOptionsScreen.java:22: Warnung: Unable to determine descriptor for @Inject target method
+    @Inject(method = "init", at = @At("RETURN"), require = 0)
+    ^
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing searge composite mappings to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-mappings.tsrg
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\src\main\java\net\boostedbrightness\BoostedBrightness.java:57: Fehler: Package net.minecraftforge.bus.api ist nicht vorhanden
+    public BoostedBrightness(net.minecraftforge.bus.api.IEventBus modEventBus) {
+                                                       ^
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing searge composite mappings to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-mappings.tsrg
+1 Fehler
+1 Warnung
+
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///T:/MyModsCode/%23Fiverr%20Projects/Boosted%20Brightness%20Remastered/1.21.10%20-%20Forge/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 2 executed, 2 up-to-date
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  Hinweis: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7.38)
+  1 Fehler
+  1 Warnung
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 6m 21s

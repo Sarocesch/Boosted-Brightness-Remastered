@@ -1,0 +1,307 @@
+Initialized native services in: C:\Users\saroc\.gradle\native
+Initialized jansi services in: C:\Users\saroc\.gradle\native
+Received JVM installation metadata from 'C:\Program Files\Eclipse Adoptium\jdk-25.0.0.36-hotspot': {JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-25.0.0.36-hotspot, JAVA_VERSION=25, JAVA_VENDOR=Eclipse Adoptium, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=25+36-LTS, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=25+36-LTS, VM_VENDOR=Eclipse Adoptium, OS_ARCH=amd64}
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.9/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Starting process 'Gradle build daemon'. Working directory: C:\Users\saroc\.gradle\daemon\8.9 Command: C:\Program Files\Eclipse Adoptium\jdk-25.0.0.36-hotspot\bin\java.exe --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens=java.base/java.nio.charset=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED -Xmx3G -Dfile.encoding=UTF-8 -Duser.country=DE -Duser.language=de -Duser.variant -cp C:\Users\saroc\.gradle\wrapper\dists\gradle-8.9-bin\90cnw93cvbtalezasaz0blq0a\gradle-8.9\lib\gradle-daemon-main-8.9.jar -javaagent:C:\Users\saroc\.gradle\wrapper\dists\gradle-8.9-bin\90cnw93cvbtalezasaz0blq0a\gradle-8.9\lib\agents\gradle-instrumentation-agent-8.9.jar org.gradle.launcher.daemon.bootstrap.GradleDaemon 8.9
+Successfully started process 'Gradle build daemon'
+An attempt to start the daemon took 0.937 secs.
+The client will now receive all logging from the daemon (pid: 39856). The daemon log file: C:\Users\saroc\.gradle\daemon\8.9\daemon-39856.out.log
+Daemon will be stopped at the end of the build 
+Using 12 worker leases.
+Received JVM installation metadata from 'C:\Program Files\Eclipse Adoptium\jdk-25.0.0.36-hotspot': {JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-25.0.0.36-hotspot, JAVA_VERSION=25, JAVA_VENDOR=Eclipse Adoptium, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=25+36-LTS, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=25+36-LTS, VM_VENDOR=Eclipse Adoptium, OS_ARCH=amd64}
+Watching the file system is configured to be enabled if available
+Now considering [T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge] as hierarchies to watch
+File system watching is active
+Starting Build
+Transforming foojay-resolver-0.8.0.jar (org.gradle.toolchains:foojay-resolver:0.8.0) with InstrumentationAnalysisTransform
+Transforming gson-2.10.1.jar (com.google.code.gson:gson:2.10.1) with InstrumentationAnalysisTransform
+Transforming foojay-resolver-0.8.0.jar (org.gradle.toolchains:foojay-resolver:0.8.0) with InstrumentationAnalysisTransform
+Transforming foojay-resolver-0.8.0.jar (org.gradle.toolchains:foojay-resolver:0.8.0) with MergeInstrumentationAnalysisTransform
+Transforming gson-2.10.1.jar (com.google.code.gson:gson:2.10.1) with InstrumentationAnalysisTransform
+Transforming gson-2.10.1.jar (com.google.code.gson:gson:2.10.1) with MergeInstrumentationAnalysisTransform
+Transforming foojay-resolver-0.8.0.jar (org.gradle.toolchains:foojay-resolver:0.8.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming gson-2.10.1.jar (com.google.code.gson:gson:2.10.1) with ExternalDependencyInstrumentingArtifactTransform
+Settings evaluated using settings file 'T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\settings.gradle'.
+Projects loaded. Root project using build file 'T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build.gradle'.
+Included projects: [root project 'boosted-brightness']
+
+> Configure project :
+Evaluating root project 'boosted-brightness' using build file 'T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build.gradle'.
+Transforming ForgeGradle-6.0.46.jar (net.minecraftforge.gradle:ForgeGradle:6.0.46) with InstrumentationAnalysisTransform
+Transforming mixingradle-0.7.38.jar (org.spongepowered:mixingradle:0.7.38) with InstrumentationAnalysisTransform
+Transforming commons-io-2.11.0.jar (commons-io:commons-io:2.11.0) with InstrumentationAnalysisTransform
+Transforming JarJarSelector-0.3.19.jar (net.minecraftforge:JarJarSelector:0.3.19) with InstrumentationAnalysisTransform
+Transforming JarJarMetadata-0.3.19.jar (net.minecraftforge:JarJarMetadata:0.3.19) with InstrumentationAnalysisTransform
+Transforming gson-2.10.1.jar (com.google.code.gson:gson:2.10.1) with InstrumentationAnalysisTransform
+Transforming guava-31.1-jre.jar (com.google.guava:guava:31.1-jre) with InstrumentationAnalysisTransform
+Transforming fastcsv-2.2.1.jar (de.siegmar:fastcsv:2.2.1) with InstrumentationAnalysisTransform
+Transforming artifactural-3.0.20.jar (net.minecraftforge:artifactural:3.0.20) with InstrumentationAnalysisTransform
+Transforming unsafe-0.2.0.jar (net.minecraftforge:unsafe:0.2.0) with InstrumentationAnalysisTransform
+Transforming maven-artifact-3.9.1.jar (org.apache.maven:maven-artifact:3.9.1) with InstrumentationAnalysisTransform
+Transforming httpclient-4.5.14.jar (org.apache.httpcomponents:httpclient:4.5.14) with InstrumentationAnalysisTransform
+Transforming srgutils-0.5.10.jar (net.minecraftforge:srgutils:0.5.10) with InstrumentationAnalysisTransform
+Transforming DiffPatch-2.0.12-all.jar (net.minecraftforge:DiffPatch:2.0.12) with InstrumentationAnalysisTransform
+Transforming asm-tree-9.2.jar (org.ow2.asm:asm-tree:9.2) with InstrumentationAnalysisTransform
+Transforming failureaccess-1.0.1.jar (com.google.guava:failureaccess:1.0.1) with InstrumentationAnalysisTransform
+Transforming listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar (com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava) with InstrumentationAnalysisTransform
+Transforming jsr305-3.0.2.jar (com.google.code.findbugs:jsr305:3.0.2) with InstrumentationAnalysisTransform
+Transforming checker-qual-3.12.0.jar (org.checkerframework:checker-qual:3.12.0) with InstrumentationAnalysisTransform
+Transforming error_prone_annotations-2.11.0.jar (com.google.errorprone:error_prone_annotations:2.11.0) with InstrumentationAnalysisTransform
+Transforming j2objc-annotations-1.3.jar (com.google.j2objc:j2objc-annotations:1.3) with InstrumentationAnalysisTransform
+Transforming plexus-utils-3.5.1.jar (org.codehaus.plexus:plexus-utils:3.5.1) with InstrumentationAnalysisTransform
+Transforming commons-lang3-3.9.jar (org.apache.commons:commons-lang3:3.9) with InstrumentationAnalysisTransform
+Transforming httpcore-4.4.16.jar (org.apache.httpcomponents:httpcore:4.4.16) with InstrumentationAnalysisTransform
+Transforming commons-logging-1.2.jar (commons-logging:commons-logging:1.2) with InstrumentationAnalysisTransform
+Transforming commons-codec-1.11.jar (commons-codec:commons-codec:1.11) with InstrumentationAnalysisTransform
+Transforming fastutil-8.3.1.jar (it.unimi.dsi:fastutil:8.3.1) with InstrumentationAnalysisTransform
+Transforming commons-compress-1.18.jar (org.apache.commons:commons-compress:1.18) with InstrumentationAnalysisTransform
+Transforming xz-1.8.jar (org.tukaani:xz:1.8) with InstrumentationAnalysisTransform
+Transforming jopt-simple-5.0.4.jar (net.sf.jopt-simple:jopt-simple:5.0.4) with InstrumentationAnalysisTransform
+Transforming noexception-1.7.1.jar (com.machinezoo.noexception:noexception:1.7.1) with InstrumentationAnalysisTransform
+Transforming slf4j-simple-1.7.30.jar (org.slf4j:slf4j-simple:1.7.30) with InstrumentationAnalysisTransform
+Transforming slf4j-api-1.7.30.jar (org.slf4j:slf4j-api:1.7.30) with InstrumentationAnalysisTransform
+Transforming asm-9.2.jar (org.ow2.asm:asm:9.2) with InstrumentationAnalysisTransform
+Transforming ForgeGradle-6.0.46.jar (net.minecraftforge.gradle:ForgeGradle:6.0.46) with InstrumentationAnalysisTransform
+Transforming ForgeGradle-6.0.46.jar (net.minecraftforge.gradle:ForgeGradle:6.0.46) with MergeInstrumentationAnalysisTransform
+Transforming mixingradle-0.7.38.jar (org.spongepowered:mixingradle:0.7.38) with InstrumentationAnalysisTransform
+Transforming mixingradle-0.7.38.jar (org.spongepowered:mixingradle:0.7.38) with MergeInstrumentationAnalysisTransform
+Transforming commons-io-2.11.0.jar (commons-io:commons-io:2.11.0) with InstrumentationAnalysisTransform
+Transforming commons-io-2.11.0.jar (commons-io:commons-io:2.11.0) with MergeInstrumentationAnalysisTransform
+Transforming JarJarSelector-0.3.19.jar (net.minecraftforge:JarJarSelector:0.3.19) with InstrumentationAnalysisTransform
+Transforming JarJarSelector-0.3.19.jar (net.minecraftforge:JarJarSelector:0.3.19) with MergeInstrumentationAnalysisTransform
+Transforming JarJarMetadata-0.3.19.jar (net.minecraftforge:JarJarMetadata:0.3.19) with InstrumentationAnalysisTransform
+Transforming JarJarMetadata-0.3.19.jar (net.minecraftforge:JarJarMetadata:0.3.19) with MergeInstrumentationAnalysisTransform
+Transforming gson-2.10.1.jar (com.google.code.gson:gson:2.10.1) with InstrumentationAnalysisTransform
+Transforming gson-2.10.1.jar (com.google.code.gson:gson:2.10.1) with MergeInstrumentationAnalysisTransform
+Transforming guava-31.1-jre.jar (com.google.guava:guava:31.1-jre) with InstrumentationAnalysisTransform
+Transforming guava-31.1-jre.jar (com.google.guava:guava:31.1-jre) with MergeInstrumentationAnalysisTransform
+Transforming fastcsv-2.2.1.jar (de.siegmar:fastcsv:2.2.1) with InstrumentationAnalysisTransform
+Transforming fastcsv-2.2.1.jar (de.siegmar:fastcsv:2.2.1) with MergeInstrumentationAnalysisTransform
+Transforming artifactural-3.0.20.jar (net.minecraftforge:artifactural:3.0.20) with InstrumentationAnalysisTransform
+Transforming artifactural-3.0.20.jar (net.minecraftforge:artifactural:3.0.20) with MergeInstrumentationAnalysisTransform
+Transforming unsafe-0.2.0.jar (net.minecraftforge:unsafe:0.2.0) with InstrumentationAnalysisTransform
+Transforming unsafe-0.2.0.jar (net.minecraftforge:unsafe:0.2.0) with MergeInstrumentationAnalysisTransform
+Transforming maven-artifact-3.9.1.jar (org.apache.maven:maven-artifact:3.9.1) with InstrumentationAnalysisTransform
+Transforming maven-artifact-3.9.1.jar (org.apache.maven:maven-artifact:3.9.1) with MergeInstrumentationAnalysisTransform
+Transforming httpclient-4.5.14.jar (org.apache.httpcomponents:httpclient:4.5.14) with InstrumentationAnalysisTransform
+Transforming httpclient-4.5.14.jar (org.apache.httpcomponents:httpclient:4.5.14) with MergeInstrumentationAnalysisTransform
+Transforming srgutils-0.5.10.jar (net.minecraftforge:srgutils:0.5.10) with InstrumentationAnalysisTransform
+Transforming srgutils-0.5.10.jar (net.minecraftforge:srgutils:0.5.10) with MergeInstrumentationAnalysisTransform
+Transforming DiffPatch-2.0.12-all.jar (net.minecraftforge:DiffPatch:2.0.12) with InstrumentationAnalysisTransform
+Transforming DiffPatch-2.0.12-all.jar (net.minecraftforge:DiffPatch:2.0.12) with MergeInstrumentationAnalysisTransform
+Transforming asm-tree-9.2.jar (org.ow2.asm:asm-tree:9.2) with InstrumentationAnalysisTransform
+Transforming asm-tree-9.2.jar (org.ow2.asm:asm-tree:9.2) with MergeInstrumentationAnalysisTransform
+Transforming failureaccess-1.0.1.jar (com.google.guava:failureaccess:1.0.1) with InstrumentationAnalysisTransform
+Transforming failureaccess-1.0.1.jar (com.google.guava:failureaccess:1.0.1) with MergeInstrumentationAnalysisTransform
+Transforming listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar (com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava) with InstrumentationAnalysisTransform
+Transforming listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar (com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava) with MergeInstrumentationAnalysisTransform
+Transforming jsr305-3.0.2.jar (com.google.code.findbugs:jsr305:3.0.2) with InstrumentationAnalysisTransform
+Transforming jsr305-3.0.2.jar (com.google.code.findbugs:jsr305:3.0.2) with MergeInstrumentationAnalysisTransform
+Transforming checker-qual-3.12.0.jar (org.checkerframework:checker-qual:3.12.0) with InstrumentationAnalysisTransform
+Transforming checker-qual-3.12.0.jar (org.checkerframework:checker-qual:3.12.0) with MergeInstrumentationAnalysisTransform
+Transforming error_prone_annotations-2.11.0.jar (com.google.errorprone:error_prone_annotations:2.11.0) with InstrumentationAnalysisTransform
+Transforming error_prone_annotations-2.11.0.jar (com.google.errorprone:error_prone_annotations:2.11.0) with MergeInstrumentationAnalysisTransform
+Transforming j2objc-annotations-1.3.jar (com.google.j2objc:j2objc-annotations:1.3) with InstrumentationAnalysisTransform
+Transforming j2objc-annotations-1.3.jar (com.google.j2objc:j2objc-annotations:1.3) with MergeInstrumentationAnalysisTransform
+Transforming plexus-utils-3.5.1.jar (org.codehaus.plexus:plexus-utils:3.5.1) with InstrumentationAnalysisTransform
+Transforming plexus-utils-3.5.1.jar (org.codehaus.plexus:plexus-utils:3.5.1) with MergeInstrumentationAnalysisTransform
+Transforming commons-lang3-3.9.jar (org.apache.commons:commons-lang3:3.9) with InstrumentationAnalysisTransform
+Transforming commons-lang3-3.9.jar (org.apache.commons:commons-lang3:3.9) with MergeInstrumentationAnalysisTransform
+Transforming httpcore-4.4.16.jar (org.apache.httpcomponents:httpcore:4.4.16) with InstrumentationAnalysisTransform
+Transforming httpcore-4.4.16.jar (org.apache.httpcomponents:httpcore:4.4.16) with MergeInstrumentationAnalysisTransform
+Transforming commons-logging-1.2.jar (commons-logging:commons-logging:1.2) with InstrumentationAnalysisTransform
+Transforming mixingradle-0.7.38.jar (org.spongepowered:mixingradle:0.7.38) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-logging-1.2.jar (commons-logging:commons-logging:1.2) with MergeInstrumentationAnalysisTransform
+Transforming commons-codec-1.11.jar (commons-codec:commons-codec:1.11) with InstrumentationAnalysisTransform
+Transforming ForgeGradle-6.0.46.jar (net.minecraftforge.gradle:ForgeGradle:6.0.46) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-codec-1.11.jar (commons-codec:commons-codec:1.11) with MergeInstrumentationAnalysisTransform
+Transforming fastutil-8.3.1.jar (it.unimi.dsi:fastutil:8.3.1) with InstrumentationAnalysisTransform
+Transforming fastutil-8.3.1.jar (it.unimi.dsi:fastutil:8.3.1) with MergeInstrumentationAnalysisTransform
+Transforming commons-compress-1.18.jar (org.apache.commons:commons-compress:1.18) with InstrumentationAnalysisTransform
+Transforming commons-compress-1.18.jar (org.apache.commons:commons-compress:1.18) with MergeInstrumentationAnalysisTransform
+Transforming xz-1.8.jar (org.tukaani:xz:1.8) with InstrumentationAnalysisTransform
+Transforming xz-1.8.jar (org.tukaani:xz:1.8) with MergeInstrumentationAnalysisTransform
+Transforming jopt-simple-5.0.4.jar (net.sf.jopt-simple:jopt-simple:5.0.4) with InstrumentationAnalysisTransform
+Transforming gson-2.10.1.jar (com.google.code.gson:gson:2.10.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming artifactural-3.0.20.jar (net.minecraftforge:artifactural:3.0.20) with ExternalDependencyInstrumentingArtifactTransform
+Transforming unsafe-0.2.0.jar (net.minecraftforge:unsafe:0.2.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jopt-simple-5.0.4.jar (net.sf.jopt-simple:jopt-simple:5.0.4) with MergeInstrumentationAnalysisTransform
+Transforming guava-31.1-jre.jar (com.google.guava:guava:31.1-jre) with ExternalDependencyInstrumentingArtifactTransform
+Transforming noexception-1.7.1.jar (com.machinezoo.noexception:noexception:1.7.1) with InstrumentationAnalysisTransform
+Transforming noexception-1.7.1.jar (com.machinezoo.noexception:noexception:1.7.1) with MergeInstrumentationAnalysisTransform
+Transforming slf4j-simple-1.7.30.jar (org.slf4j:slf4j-simple:1.7.30) with InstrumentationAnalysisTransform
+Transforming slf4j-simple-1.7.30.jar (org.slf4j:slf4j-simple:1.7.30) with MergeInstrumentationAnalysisTransform
+Transforming slf4j-api-1.7.30.jar (org.slf4j:slf4j-api:1.7.30) with InstrumentationAnalysisTransform
+Transforming JarJarSelector-0.3.19.jar (net.minecraftforge:JarJarSelector:0.3.19) with ExternalDependencyInstrumentingArtifactTransform
+Transforming slf4j-api-1.7.30.jar (org.slf4j:slf4j-api:1.7.30) with MergeInstrumentationAnalysisTransform
+Transforming asm-9.2.jar (org.ow2.asm:asm:9.2) with InstrumentationAnalysisTransform
+Transforming asm-9.2.jar (org.ow2.asm:asm:9.2) with MergeInstrumentationAnalysisTransform
+Transforming commons-io-2.11.0.jar (commons-io:commons-io:2.11.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming JarJarMetadata-0.3.19.jar (net.minecraftforge:JarJarMetadata:0.3.19) with ExternalDependencyInstrumentingArtifactTransform
+Transforming fastcsv-2.2.1.jar (de.siegmar:fastcsv:2.2.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming maven-artifact-3.9.1.jar (org.apache.maven:maven-artifact:3.9.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming httpclient-4.5.14.jar (org.apache.httpcomponents:httpclient:4.5.14) with ExternalDependencyInstrumentingArtifactTransform
+Transforming srgutils-0.5.10.jar (net.minecraftforge:srgutils:0.5.10) with ExternalDependencyInstrumentingArtifactTransform
+Transforming DiffPatch-2.0.12-all.jar (net.minecraftforge:DiffPatch:2.0.12) with ExternalDependencyInstrumentingArtifactTransform
+Transforming listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar (com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava) with ExternalDependencyInstrumentingArtifactTransform
+Transforming asm-tree-9.2.jar (org.ow2.asm:asm-tree:9.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming checker-qual-3.12.0.jar (org.checkerframework:checker-qual:3.12.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming error_prone_annotations-2.11.0.jar (com.google.errorprone:error_prone_annotations:2.11.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jsr305-3.0.2.jar (com.google.code.findbugs:jsr305:3.0.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming failureaccess-1.0.1.jar (com.google.guava:failureaccess:1.0.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming j2objc-annotations-1.3.jar (com.google.j2objc:j2objc-annotations:1.3) with ExternalDependencyInstrumentingArtifactTransform
+Transforming plexus-utils-3.5.1.jar (org.codehaus.plexus:plexus-utils:3.5.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-lang3-3.9.jar (org.apache.commons:commons-lang3:3.9) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-codec-1.11.jar (commons-codec:commons-codec:1.11) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-logging-1.2.jar (commons-logging:commons-logging:1.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming httpcore-4.4.16.jar (org.apache.httpcomponents:httpcore:4.4.16) with ExternalDependencyInstrumentingArtifactTransform
+Transforming fastutil-8.3.1.jar (it.unimi.dsi:fastutil:8.3.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming xz-1.8.jar (org.tukaani:xz:1.8) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-compress-1.18.jar (org.apache.commons:commons-compress:1.18) with ExternalDependencyInstrumentingArtifactTransform
+Transforming noexception-1.7.1.jar (com.machinezoo.noexception:noexception:1.7.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jopt-simple-5.0.4.jar (net.sf.jopt-simple:jopt-simple:5.0.4) with ExternalDependencyInstrumentingArtifactTransform
+Transforming slf4j-api-1.7.30.jar (org.slf4j:slf4j-api:1.7.30) with ExternalDependencyInstrumentingArtifactTransform
+Transforming slf4j-simple-1.7.30.jar (org.slf4j:slf4j-simple:1.7.30) with ExternalDependencyInstrumentingArtifactTransform
+Transforming asm-9.2.jar (org.ow2.asm:asm:9.2) with ExternalDependencyInstrumentingArtifactTransform
+MixinGradle did not locate the diffplug APT plugin, skipping eclipse task configuration
+Java: 25, JVM: 25+36-LTS (Eclipse Adoptium), Arch: amd64
+Downloading net.minecraftforge:forge:1.21.10-60.1.0:userdev
+Downloading net.minecraftforge:forge:1.21.10-60.1.0:universal-srg@jar
+Downloading net.minecraftforge:forge:1.21.10-60.1.0:sources@jar
+Downloading de.oceanlabs.mcp:mcp_config:1.21.10-20251007.101210@zip
+Downloading de.oceanlabs.mcp:mcp_config:1.21.10@zip
+Downloading de.oceanlabs.mcp:mcp_config:1.21.10@zip
+Creating reobfuscation task for JarJar task: jarJar
+No sourceSets added for mixin processing, applying defaults
+Adding source set 'main' to mixin processor
+Adding source set 'test' to mixin processor
+All projects evaluated.
+Task name matched 'compileJava'
+Selected primary task 'compileJava' from project :
+Starting process 'command 'C:\Users\saroc\.jdks\corretto-1.8.0_462\bin\java.exe''. Working directory: C:\Users\saroc\.gradle\.tmp\tmp-jvm2537285160834648118probe Command: C:\Users\saroc\.jdks\corretto-1.8.0_462\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command 'C:\Users\saroc\.jdks\corretto-1.8.0_462\bin\java.exe''
+Received JVM installation metadata from 'C:\Users\saroc\.jdks\corretto-1.8.0_462': {JAVA_HOME=C:\Users\saroc\.jdks\corretto-1.8.0_462\jre, JAVA_VERSION=1.8.0_462, JAVA_VENDOR=Amazon.com Inc., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=1.8.0_462-b08, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=25.462-b08, VM_VENDOR=Amazon.com Inc., OS_ARCH=amd64}
+Starting process 'command 'C:\Users\saroc\.jdks\corretto-19.0.2\bin\java.exe''. Working directory: C:\Users\saroc\.gradle\.tmp\tmp-jvm12652938731513929938probe Command: C:\Users\saroc\.jdks\corretto-19.0.2\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command 'C:\Users\saroc\.jdks\corretto-19.0.2\bin\java.exe''
+Received JVM installation metadata from 'C:\Users\saroc\.jdks\corretto-19.0.2': {JAVA_HOME=C:\Users\saroc\.jdks\corretto-19.0.2, JAVA_VERSION=19.0.2, JAVA_VENDOR=Amazon.com Inc., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=19.0.2+7-FR, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=19.0.2+7-FR, VM_VENDOR=Amazon.com Inc., OS_ARCH=amd64}
+Starting process 'command 'C:\Users\saroc\.gradle\jdks\eclipse_adoptium-21-amd64-windows.2\bin\java.exe''. Working directory: C:\Users\saroc\.gradle\.tmp\tmp-jvm15064535826600500700probe Command: C:\Users\saroc\.gradle\jdks\eclipse_adoptium-21-amd64-windows.2\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command 'C:\Users\saroc\.gradle\jdks\eclipse_adoptium-21-amd64-windows.2\bin\java.exe''
+Received JVM installation metadata from 'C:\Users\saroc\.gradle\jdks\eclipse_adoptium-21-amd64-windows.2': {JAVA_HOME=C:\Users\saroc\.gradle\jdks\eclipse_adoptium-21-amd64-windows.2, JAVA_VERSION=21.0.8, JAVA_VENDOR=Eclipse Adoptium, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.8+9-LTS, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.8+9-LTS, VM_VENDOR=Eclipse Adoptium, OS_ARCH=amd64}
+Starting process 'command 'C:\Users\saroc\.jdks\corretto-22.0.2\bin\java.exe''. Working directory: C:\Users\saroc\.gradle\.tmp\tmp-jvm929595402603097457probe Command: C:\Users\saroc\.jdks\corretto-22.0.2\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command 'C:\Users\saroc\.jdks\corretto-22.0.2\bin\java.exe''
+Received JVM installation metadata from 'C:\Users\saroc\.jdks\corretto-22.0.2': {JAVA_HOME=C:\Users\saroc\.jdks\corretto-22.0.2, JAVA_VERSION=22.0.2, JAVA_VENDOR=Amazon.com Inc., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=22.0.2+9-FR, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=22.0.2+9-FR, VM_VENDOR=Amazon.com Inc., OS_ARCH=amd64}
+Starting process 'command 'C:\Users\saroc\.jdks\corretto-21.0.8\bin\java.exe''. Working directory: C:\Users\saroc\.gradle\.tmp\tmp-jvm4112534073050298217probe Command: C:\Users\saroc\.jdks\corretto-21.0.8\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command 'C:\Users\saroc\.jdks\corretto-21.0.8\bin\java.exe''
+Received JVM installation metadata from 'C:\Users\saroc\.jdks\corretto-21.0.8': {JAVA_HOME=C:\Users\saroc\.jdks\corretto-21.0.8, JAVA_VERSION=21.0.8, JAVA_VENDOR=Amazon.com Inc., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.8+9-LTS, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.8+9-LTS, VM_VENDOR=Amazon.com Inc., OS_ARCH=amd64}
+Starting process 'command 'C:\Users\saroc\.jdks\corretto-17.0.16\bin\java.exe''. Working directory: C:\Users\saroc\.gradle\.tmp\tmp-jvm1466675559989556705probe Command: C:\Users\saroc\.jdks\corretto-17.0.16\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command 'C:\Users\saroc\.jdks\corretto-17.0.16\bin\java.exe''
+Received JVM installation metadata from 'C:\Users\saroc\.jdks\corretto-17.0.16': {JAVA_HOME=C:\Users\saroc\.jdks\corretto-17.0.16, JAVA_VERSION=17.0.16, JAVA_VENDOR=Amazon.com Inc., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=17.0.16+8-LTS, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=17.0.16+8-LTS, VM_VENDOR=Amazon.com Inc., OS_ARCH=amd64}
+Starting process 'command 'C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot\bin\java.exe''. Working directory: C:\Users\saroc\.gradle\.tmp\tmp-jvm333619508428006734probe Command: C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command 'C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot\bin\java.exe''
+Received JVM installation metadata from 'C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot': {JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot, JAVA_VERSION=17.0.16, JAVA_VENDOR=Eclipse Adoptium, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=17.0.16+8, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=17.0.16+8, VM_VENDOR=Eclipse Adoptium, OS_ARCH=amd64}
+Tasks to be executed: [task ':downloadMcpConfig', task ':extractSrg', task ':createMcpToSrg', task ':compileJava']
+Tasks that were excluded: []
+Resolve mutations for :downloadMcpConfig (Thread[#140,Execution worker,5,main]) started.
+:downloadMcpConfig (Thread[#140,Execution worker,5,main]) started.
+
+> Task :downloadMcpConfig
+Caching disabled for task ':downloadMcpConfig' because:
+  Build cache is disabled
+  Caching has not been enabled for the task
+Task ':downloadMcpConfig' is not up-to-date because:
+  Task.upToDateWhen is false.
+Not watching anything anymore
+Downloading de.oceanlabs.mcp:mcp_config:1.21.10-20251007.101210@zip
+Resolve mutations for :extractSrg (Thread[#140,Execution worker,5,main]) started.
+:extractSrg (Thread[#140,Execution worker,5,main]) started.
+
+> Task :extractSrg UP-TO-DATE
+Caching disabled for task ':extractSrg' because:
+  Build cache is disabled
+  Caching has not been enabled for the task
+Skipping task ':extractSrg' as it is up-to-date.
+Resolve mutations for :createMcpToSrg (Thread[#140,Execution worker,5,main]) started.
+:createMcpToSrg (Thread[#140,Execution worker,5,main]) started.
+
+> Task :createMcpToSrg UP-TO-DATE
+Caching disabled for task ':createMcpToSrg' because:
+  Build cache is disabled
+  Caching has not been enabled for the task
+Skipping task ':createMcpToSrg' as it is up-to-date.
+Resolve mutations for :compileJava (Thread[#140,Execution worker,5,main]) started.
+:compileJava (Thread[#140,Execution worker,5,main]) started.
+This JVM does not support getting OS memory, so no OS memory status updates will be broadcast
+
+> Task :compileJava
+Downloading net.minecraft:mappings_official:1.21.10@zip
+Downloading net.minecraft:client:1.21.10:mappings@txt
+Downloading net.minecraft:server:1.21.10:mappings@txt
+Downloading de.oceanlabs.mcp:mcp_config:1.21.10@zip
+Downloading de.oceanlabs.mcp:mcp_config:1.21.10@zip
+Downloading net.minecraft:mappings_official:1.21.10@zip
+Custom actions are attached to task ':compileJava'.
+Caching disabled for task ':compileJava' because:
+  Build cache is disabled
+Task ':compileJava' is not up-to-date because:
+  Task has failed previously.
+The input changes require a full rebuild for incremental task ':compileJava'.
+Compilation mode: default, forking compiler
+Full recompilation is required because no incremental change information is available. This is usually caused by clean builds or changing compiler arguments.
+Compiling with toolchain 'C:\Users\saroc\.gradle\jdks\eclipse_adoptium-21-amd64-windows.2'.
+Starting process 'Gradle Worker Daemon 1'. Working directory: C:\Users\saroc\.gradle\workers Command: C:\Users\saroc\.gradle\jdks\eclipse_adoptium-21-amd64-windows.2\bin\java.exe --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED @C:\Users\saroc\.gradle\.tmp\gradle-worker-classpath15192580890268146298txt -Xmx512m -Dfile.encoding=UTF-8 -Duser.country=DE -Duser.language=de -Duser.variant worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Worker Daemon 1'
+Successfully started process 'Gradle Worker Daemon 1'
+Started Gradle worker daemon (0.454 secs) with fork options DaemonForkOptions{executable=C:\Users\saroc\.gradle\jdks\eclipse_adoptium-21-amd64-windows.2\bin\java.exe, minHeapSize=null, maxHeapSize=null, jvmArgs=[--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED, --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED], keepAliveMode=DAEMON}.
+Compiling with JDK Java compiler API.
+Hinweis: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7.38)
+Hinweis: Supported obfuscation types: ObfuscationServiceMCP supports [notch] ObfuscationServiceFG3 supports [searge]
+Hinweis: Loading searge mappings from T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\createMcpToSrg\output.tsrg
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\src\main\java\net\boostedbrightness\mixin\MixinOptionsScreen.java:22: Warnung: Unable to determine descriptor for @Inject target method
+    @Inject(method = "init", at = @At("RETURN"), require = 0)
+    ^
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing searge composite mappings to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-mappings.tsrg
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\src\main\java\net\boostedbrightness\BoostedBrightness.java:18: Fehler: Package net.minecraftforge.eventbus.api ist nicht vorhanden
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+                                      ^
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\src\main\java\net\boostedbrightness\BoostedBrightness.java:231: Fehler: Symbol nicht gefunden
+    @SubscribeEvent
+     ^
+  Symbol: Klasse SubscribeEvent
+  Ort: Klasse BoostedBrightness
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\src\main\java\net\boostedbrightness\BoostedBrightness.java:57: Fehler: Symbol nicht gefunden
+        @SubscribeEvent
+         ^
+  Symbol: Klasse SubscribeEvent
+  Ort: Klasse ClientModEvents
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\src\main\java\net\boostedbrightness\BoostedBrightness.java:63: Fehler: Symbol nicht gefunden
+        @SubscribeEvent
+         ^
+  Symbol: Klasse SubscribeEvent
+  Ort: Klasse ClientModEvents
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing searge composite mappings to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-mappings.tsrg
+4 Fehler
+1 Warnung
+
+> Task :compileJava FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+> Run with --scan to get full insights.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.9/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+4 actionable tasks: 2 executed, 2 up-to-date
+Watched directory hierarchies: [T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge]
+
+BUILD FAILED in 11s

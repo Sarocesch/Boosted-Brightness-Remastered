@@ -1,0 +1,57 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+MixinGradle did not locate the diffplug APT plugin, skipping eclipse task configuration
+Java: 25, JVM: 25+36-LTS (Eclipse Adoptium), Arch: amd64
+
+> Task :downloadMcpConfig
+> Task :extractSrg UP-TO-DATE
+> Task :createMcpToSrg UP-TO-DATE
+
+> Task :compileJava
+Hinweis: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7.38)
+Hinweis: Supported obfuscation types: ObfuscationServiceMCP supports [notch] ObfuscationServiceFG3 supports [searge]
+Hinweis: Loading searge mappings from T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\createMcpToSrg\output.tsrg
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\src\main\java\net\boostedbrightness\mixin\MixinOptionsScreen.java:22: Warnung: Unable to determine descriptor for @Inject target method
+    @Inject(method = "init", at = @At("RETURN"), require = 0)
+    ^
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing searge composite mappings to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-mappings.tsrg
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing searge composite mappings to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\build\tmp\compileJava\compileJava-mappings.tsrg
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.10 - Forge\src\main\java\net\boostedbrightness\ui\BrightnessListWidget.java:161: Fehler: Methode onPress in Klasse Button kann nicht auf die angegebenen Typen angewendet werden.
+                        btn.onPress();
+                           ^
+  Erforderlich: InputWithModifiers
+  Ermittelt:    keine Argumente
+  Grund: Liste der tats├ñchlichen Argumente hat eine andere L├ñnge als die der formalen Argumente
+1 Fehler
+1 Warnung
+
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+> Task :compileJava FAILED
+
+[Incubating] Problems report is available at: file:///T:/MyModsCode/%23Fiverr%20Projects/Boosted%20Brightness%20Remastered/1.21.10%20-%20Forge/build/reports/problems/problems-report.html
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  Hinweis: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7.38)
+  1 Fehler
+  1 Warnung
+
+* Try:
+> Run with --scan to get full insights.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 12s
+4 actionable tasks: 2 executed, 2 up-to-date
