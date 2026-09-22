@@ -1,0 +1,63 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.9/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+MixinGradle did not locate the diffplug APT plugin, skipping eclipse task configuration
+Java: 25, JVM: 25+36-LTS (Eclipse Adoptium), Arch: amd64
+
+> Task :clean
+> Task :downloadMcpConfig
+> Task :extractSrg
+> Task :createMcpToSrg
+
+> Task :compileJava
+[03:16:12] [main/INFO]: Writing debug log file accesstransform.log
+[03:16:12] [main/INFO]: Access Transformer processor running version 8.2.1
+[03:16:12] [main/INFO]: Command line arguments [--inJar, T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\fg_cache\net\minecraftforge\forge\1.21.1-52.0.57\forge-1.21.1-52.0.57-injected.jar, --outJar, T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\fg_cache\net\minecraftforge\forge\1.21.1-52.0.57_mapped_official_1.21.1\forge-1.21.1-52.0.57_mapped_official_1.21.1.jar, --logFile, accesstransform.log, --atFile, T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\src\main\resources\META-INF\accesstransformer.cfg, --atFile, T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\_atJar_4\parent_at.cfg]
+[03:16:12] [main/INFO]: Reading from T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\fg_cache\net\minecraftforge\forge\1.21.1-52.0.57\forge-1.21.1-52.0.57-injected.jar
+[03:16:12] [main/INFO]: Writing to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\fg_cache\net\minecraftforge\forge\1.21.1-52.0.57_mapped_official_1.21.1\forge-1.21.1-52.0.57_mapped_official_1.21.1.jar
+[03:16:12] [main/INFO]: Transformer file T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\src\main\resources\META-INF\accesstransformer.cfg
+[03:16:12] [main/INFO]: Transformer file T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\_atJar_4\parent_at.cfg
+[03:16:12] [main/WARN]: Found existing output jar T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\fg_cache\net\minecraftforge\forge\1.21.1-52.0.57_mapped_official_1.21.1\forge-1.21.1-52.0.57_mapped_official_1.21.1.jar, overwriting
+[03:16:15] [main/INFO]: JAR transformation complete T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\fg_cache\net\minecraftforge\forge\1.21.1-52.0.57_mapped_official_1.21.1\forge-1.21.1-52.0.57_mapped_official_1.21.1.jar
+Creating SRG -> MCP TSRG
+Hinweis: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7.38)
+Hinweis: Supported obfuscation types: ObfuscationServiceMCP supports [notch] ObfuscationServiceFG3 supports [searge]
+Hinweis: Loading searge mappings from T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\createMcpToSrg\output.tsrg
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\src\main\java\net\boostedbrightness\mixin\MixinOptionsScreen.java:22: Warnung: Unable to determine descriptor for @Inject target method
+    @Inject(method = "init", at = @At("RETURN"), require = 0)
+    ^
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing searge composite mappings to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-mappings.tsrg
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing searge composite mappings to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-mappings.tsrg
+1 Warnung
+
+> Task :processResources
+> Task :classes
+> Task :compileTestJava NO-SOURCE
+> Task :addMixinsToJar
+> Task :jar
+> Task :configureReobfTaskForReobfJar
+> Task :reobfJar
+> Task :configureReobfTaskForReobfJarJar
+> Task :addMixinsToJarJar
+> Task :jarJar SKIPPED
+> Task :reobfJarJar SKIPPED
+> Task :assemble
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.9/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 41s
+12 actionable tasks: 12 executed
