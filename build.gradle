@@ -55,3 +55,14 @@ jar {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
+
+// Forge 26.3 ships Mixin 0.8.7 (max class version 65): restamp mixin classes so they get applied
+tasks.named('compileJava') {
+    doLast { task ->
+        task.destinationDirectory.get().asFile.eachFileRecurse(groovy.io.FileType.FILES) { f ->
+            if (!f.name.endsWith('.class') || !f.path.replace(File.separator, '/').contains('/mixin/')) return
+            byte[] b = f.bytes
+            if (b.length > 7 && ((b[7] & 0xFF) > 65)) { b[6] = 0; b[7] = (byte) 65; f.bytes = b }
+        }
+    }
+}
