@@ -1,0 +1,114 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.9/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Java: 25, JVM: 25+36-LTS (Eclipse Adoptium), Arch: amd64
+
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :downloadAssets UP-TO-DATE
+> Task :prepareClientRun UP-TO-DATE
+
+> Task :runClient
+2025-12-20T23:19:37.390357800Z main WARN Advanced terminal features are not available in this environment
+[00:19:37] [main/INFO] [ne.ne.fm.st.Entrypoint/]: JVM Uptime at startup: 123ms
+[00:19:37] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Starting FancyModLoader version 10.0.34 (CLIENT in DEV)
+[00:19:37] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Game directory: T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.11 - NeoForge\run
+[00:19:37] [main/WARN] [ne.ne.fm.lo.FMLConfig/CORE]: Configuration file T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.11 - NeoForge\run\config\fml.toml is not correct. Correcting
+[00:19:37] [main/INFO] [ne.ne.fm.lo.EarlyServiceDiscovery/]: Found 2 early service jars (out of 104) in 27ms
+[00:19:37] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Loading FML Early Services:
+[00:19:37] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - C:/Users/saroc/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.34/940266c61386e450a76e94b72f06343ab9d3417e/loader-10.0.34.jar
+[00:19:37] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - C:/Users/saroc/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/10.0.34/6b03e4ea379214464e918a423421a654ac34ca7/earlydisplay-10.0.34.jar
+[00:19:37] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[00:19:38] [ForkJoinPool.commonPool-worker-8/INFO] [ne.ne.fm.lo.mo.lo.GameLocator/]: Detected a joined NeoForge and Minecraft configuration. Applying filtering...
+[00:19:38] [ForkJoinPool.commonPool-worker-8/INFO] [ne.ne.fm.lo.mo.lo.InDevFolderLocator/CORE]: Got mod coordinates boostedbrightness%%T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.11 - NeoForge\build\classes\java\main;boostedbrightness%%T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.11 - NeoForge\build\resources\main from env
+[00:19:38] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: NVIDIA GeForce RTX 5060 Ti/PCIe/SSE2 GL version 3.3.0 NVIDIA 591.44, NVIDIA Corporation
+[00:19:38] [ForkJoinPool.commonPool-worker-8/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[00:19:38] [ForkJoinPool.commonPool-worker-8/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Boosted Brightness 0.0NONE (boostedbrightness)
+		Minecraft 1.21.11 (minecraft)
+		NeoForge 21.11.6-beta (neoforge)
+[00:19:38] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/C:/Users/saroc/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.16.5+mixin.0.8.7/80fc3a9f592673cea87f4cd702f87991c6c9fe4d/sponge-mixin-0.16.5+mixin.0.8.7.jar Service=FML Env=CLIENT
+[00:19:38] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Loading FML Plugins:
+[00:19:38] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - T:/MyModsCode/#Fiverr Projects/Boosted Brightness Remastered/1.21.11 - NeoForge/build/moddev/artifacts/neoforge-21.11.6-beta.jar > net.neoforged.neoforge-coremods-21.11.6-beta.jar
+[00:19:38] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Building game content classloader:
+ - boostedbrightness (composite(folder(T:/MyModsCode/#Fiverr Projects/Boosted Brightness Remastered/1.21.11 - NeoForge/build/classes/java/main), folder(T:/MyModsCode/#Fiverr Projects/Boosted Brightness Remastered/1.21.11 - NeoForge/build/resources/main)))
+ - minecraft (composite(jar(T:/MyModsCode/#Fiverr Projects/Boosted Brightness Remastered/1.21.11 - NeoForge/build/moddev/artifacts/neoforge-21.11.6-beta-client-extra-aka-minecraft-resources.jar), filtered(jar(T:/MyModsCode/#Fiverr Projects/Boosted Brightness Remastered/1.21.11 - NeoForge/build/moddev/artifacts/neoforge-21.11.6-beta.jar))))
+ - mixinextras.neoforge (jar(T:/MyModsCode/#Fiverr Projects/Boosted Brightness Remastered/1.21.11 - NeoForge/build/moddev/artifacts/neoforge-21.11.6-beta.jar > mixinextras-neoforge-0.5.0.jar))
+ - neoforge (composite(filtered(jar(T:/MyModsCode/#Fiverr Projects/Boosted Brightness Remastered/1.21.11 - NeoForge/build/moddev/artifacts/neoforge-21.11.6-beta.jar))))
+ - net.neoforged.fml.generated (empty(VirtualJar/net.neoforged.fml.generated))
+[00:19:38] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Built game content classloader in 21ms
+[00:19:40] [Datafixer Bootstrap/INFO] [mojang/DataFixerBuilder]: 290 Datafixer optimizations took 403 milliseconds
+[00:19:40] [main/WARN] [os.dr.wi.pe.PerfmonDisabled/]: Invalid registry value type detected for PerfOS counters. Should be REG_DWORD. Ignoring: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PerfOS\Performance\Disable Performance Counters.
+[00:19:40] [pool-8-thread-1/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.0).
+[00:19:44] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[00:19:44] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[00:19:44] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[00:19:44] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[00:19:44] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[00:19:44] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [waypoint, modify, waypoint, color, reset] and [waypoint, modify, waypoint, color, color] with inputs: [reset]
+[00:19:44] [modloading-worker-0/INFO] [ne.ne.ne.co.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.11.6-beta, for MC 1.21.11
+[00:19:45] [Render thread/INFO] [mojang/YggdrasilAuthenticationService]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[00:19:45] [Render thread/INFO] [minecraft/Minecraft]: Setting user: Dev
+[BoostedBrightness] Gamma option modified for extended range: -1.0 to 12.0
+[BoostedBrightness] Gamma option modified for extended range: -1.0 to 12.0
+[00:19:45] [Render thread/INFO] [minecraft/Minecraft]: Backend library: LWJGL version 3.3.3+5
+[00:19:45] [Render thread/WARN] [minecraft/Minecraft]: Detected unexpected shutdown during last game startup: resetting fullscreen mode
+[00:19:45] [Render thread/INFO] [minecraft/Minecraft]: Using optional rendering extensions: GL_ARB_buffer_storage, GL_KHR_debug, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access, GL_EXT_texture_filter_anisotropic
+[00:19:45] [Render thread/ERROR] [minecraft/AbstractPackResources]: Couldn't load mod/boostedbrightness pack metadata: Pack declares support for format 64, but game versions supporting formats 17 to 64 require a supported_formats field. Add "supported_formats": [64, 64] or require a version greater or equal to 65.0.
+[00:19:46] [Render thread/INFO] [minecraft/ReloadableResourceManager]: Reloading ResourceManager: vanilla, mod_resources, mod/boostedbrightness, mod/neoforge
+[00:19:46] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_all_no_pua-17.0.01.hex, loading
+[00:19:46] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_pua-17.0.01.hex, loading
+[00:19:46] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_jp_patch-17.0.01.hex, loading
+[00:19:47] [Render thread/INFO] [mojang/Library]: OpenAL initialized on device OpenAL Soft on Speakers (NVIDIA Broadcast)
+[00:19:47] [Render thread/INFO] [minecraft/SoundEngine]: Sound engine started
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 128x128x0 minecraft:textures/atlas/decorated_pot.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 2048x1024x0 minecraft:textures/atlas/armor_trims.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 2048x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x0 minecraft:textures/atlas/chest.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 256x128x0 minecraft:textures/atlas/celestials.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x0 minecraft:textures/atlas/beds.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x0 minecraft:textures/atlas/items.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 128x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/signs.png-atlas
+[00:19:47] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x0 minecraft:textures/atlas/shulker_boxes.png-atlas
+[00:19:47] [Render thread/INFO] [ne.ne.ne.cl.en.an.js.AnimationLoader/]: Loaded 0 entity animations
+[00:21:33] [Render thread/ERROR] [minecraft/AbstractPackResources]: Couldn't load mod/boostedbrightness pack metadata: Pack declares support for format 64, but game versions supporting formats 17 to 64 require a supported_formats field. Add "supported_formats": [64, 64] or require a version greater or equal to 65.0.
+[00:21:33] [Render thread/INFO] [minecraft/ReloadableResourceManager]: Reloading ResourceManager: vanilla, mod_resources, mod/boostedbrightness, mod/neoforge
+[00:21:33] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_all_no_pua-17.0.01.hex, loading
+[00:21:33] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_pua-17.0.01.hex, loading
+[00:21:34] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_jp_patch-17.0.01.hex, loading
+[00:21:34] [Render thread/INFO] [mojang/Library]: OpenAL initialized on device OpenAL Soft on Speakers (NVIDIA Broadcast)
+[00:21:34] [Render thread/INFO] [minecraft/SoundEngine]: Sound engine started
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 128x128x0 minecraft:textures/atlas/decorated_pot.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 2048x1024x0 minecraft:textures/atlas/armor_trims.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 4096x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x0 minecraft:textures/atlas/chest.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 256x128x0 minecraft:textures/atlas/celestials.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x0 minecraft:textures/atlas/beds.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x512x0 minecraft:textures/atlas/items.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 128x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x256x0 minecraft:textures/atlas/signs.png-atlas
+[00:21:34] [Render thread/INFO] [minecraft/TextureAtlas]: Created: 512x512x0 minecraft:textures/atlas/shulker_boxes.png-atlas
+[00:21:34] [Render thread/INFO] [ne.ne.ne.cl.en.an.js.AnimationLoader/]: Loaded 0 entity animations
+[00:22:15] [Render thread/INFO] [minecraft/Minecraft]: Stopping!
+[00:22:15] [Render thread/ERROR] [minecraft/Options]: Error saving option Brightness: Value 11.08450704225352 outside of range [0.0:1.0]
+[00:22:15] [Render thread/ERROR] [minecraft/Options]: Error saving option Brightness: Value 11.08450704225352 outside of range [0.0:1.0]
+
+BUILD SUCCESSFUL in 2m 49s
+6 actionable tasks: 1 executed, 5 up-to-date
