@@ -1,0 +1,12 @@
+accessWidener v2 official
+accessible class net/minecraft/client/OptionInstance$SliderableValueSet
+accessible class net/minecraft/client/OptionInstance$ValueSet
+accessible field net/minecraft/client/OptionInstance values Lnet/minecraft/client/OptionInstance$ValueSet;
+mutable field net/minecraft/client/OptionInstance values Lnet/minecraft/client/OptionInstance$ValueSet;
+accessible field net/minecraft/client/OptionInstance codec Lcom/mojang/serialization/Codec;
+mutable field net/minecraft/client/OptionInstance codec Lcom/mojang/serialization/Codec;
+accessible field net/minecraft/client/OptionInstance toString Ljava/util/function/Function;
+mutable field net/minecraft/client/OptionInstance toString Ljava/util/function/Function;
+accessible field net/minecraft/client/OptionInstance onValueUpdate Lnet/minecraft/client/OptionInstance$ValueUpdateListener;
+mutable field net/minecraft/client/OptionInstance onValueUpdate Lnet/minecraft/client/OptionInstance$ValueUpdateListener;
+accessible field net/minecraft/client/OptionInstance value Ljava/lang/Object;
