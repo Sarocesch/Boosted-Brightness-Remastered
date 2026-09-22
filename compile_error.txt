@@ -1,0 +1,53 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.9/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+MixinGradle did not locate the diffplug APT plugin, skipping eclipse task configuration
+Java: 25, JVM: 25+36-LTS (Eclipse Adoptium), Arch: amd64
+
+> Task :downloadMcpConfig
+> Task :extractSrg UP-TO-DATE
+> Task :createMcpToSrg UP-TO-DATE
+
+> Task :compileJava
+Hinweis: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7.38)
+Hinweis: Supported obfuscation types: ObfuscationServiceMCP supports [notch] ObfuscationServiceFG3 supports [searge]
+Hinweis: Loading searge mappings from T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\createMcpToSrg\output.tsrg
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\src\main\java\net\boostedbrightness\mixin\MixinOptionsScreen.java:22: Warnung: Unable to determine descriptor for @Inject target method
+    @Inject(method = "init", at = @At("RETURN"), require = 0)
+    ^
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-refmap.json
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\src\main\java\net\boostedbrightness\mixin\MixinSimpleOption.java:32: Warnung: Cannot find target for @Shadow field in net.minecraft.client.OptionInstance
+    @Shadow
+    ^
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing searge composite mappings to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-mappings.tsrg
+T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\src\main\java\net\boostedbrightness\mixin\MixinSimpleOption.java:35: Fehler: ValueSet ist nicht ├Âffentlich in OptionInstance. Zugriff von externem Package nicht m├Âglich
+    OptionInstance.ValueSet<T> values;
+                  ^
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing refmap to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-refmap.json
+Hinweis: Writing searge composite mappings to T:\MyModsCode\#Fiverr Projects\Boosted Brightness Remastered\1.21.1 - Forge\build\tmp\compileJava\compileJava-mappings.tsrg
+1 Fehler
+2 Warnungen
+
+> Task :compileJava FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+> Run with --info option to get more log output.
+> Run with --scan to get full insights.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.9/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 10s
+4 actionable tasks: 2 executed, 2 up-to-date
