@@ -1,0 +1,27 @@
+{
+	"schemaVersion": 1,
+	"id": "boostedbrightness",
+	"version": "${version}",
+	"name": "Boosted Brightness Remastered",
+	"description": "Allows you to adjust brightness beyond vanilla limits",
+	"authors": [
+		"BoostedBrightness Team"
+	],
+	"license": "All Rights Reserved",
+	"icon": "assets/boostedbrightness/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"net.boostedbrightness.BoostedBrightness"
+		]
+	},
+	"accessWidener": "boostedbrightness.accesswidener",
+	"mixins": [
+		"boostedbrightness.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": ">=26.1",
+		"java": ">=25"
+	}
+}
